@@ -11,8 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() { delete ui; }
 
-MainWindow::ShowSettingWidget() {}
+void MainWindow::ShowSettingWidget() {}
 
-MainWindow::BindMenuActions() {
+void MainWindow::BindMenuActions() {
   ui->menu_Settings->addAction(show_settings_act_);
 }
