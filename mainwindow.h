@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "settings.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -10,20 +12,22 @@ class MainWindow;
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
-public:
+ public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
-private slots:
+ private slots:
   void ShowSettingWidget();
 
-private:
+ private:
   void CreateActions();
   void BindMenuActions();
 
   QAction *show_settings_act_;
 
   Ui::MainWindow *ui;
+
+  Settings *settings;
 };
 
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H
