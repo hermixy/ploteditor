@@ -17,6 +17,10 @@ public:
 
 private slots:
 
+  void findNpcFilePath();
+  void findPlotFilePath();
+  void findSceneFilePath();
+
 private:
   Ui::Settings *ui;
 };
