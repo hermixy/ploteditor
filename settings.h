@@ -6,17 +6,19 @@
 
 namespace Ui {
 class Settings;
-}  // namespace Ui
+} // namespace Ui
 
 class Settings : public QWidget {
   Q_OBJECT
 
- public:
+public:
   explicit Settings(QWidget *parent = 0);
   ~Settings();
 
- private:
+private slots:
+
+private:
   Ui::Settings *ui;
 };
 
-#endif  // SETTINGS_H
+#endif // SETTINGS_H

@@ -1,32 +1,29 @@
-
-#include <QMenuBar>
-
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ui_settings.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow), settings(new Settings) {
+    : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
-  setCentralWidget(settings);
-
-  CreateActions();
+  BindMenuActions();
 }
 
 MainWindow::~MainWindow() {
   delete ui;
-  delete settings;
+
+  if (nullptr != settings_) {
+    delete settings_;
+  }
 }
 
-void MainWindow::ShowSettingWidget() {}
-
-void MainWindow::CreateActions() {
-  show_settings_act_ = ui->menu_Settings->addAction(
-      tr("Open Settings"), this,
-      show_settings_act_->setShortcut(QKeySequence::Open));
+void MainWindow::ShowSettingWidget() {
+  settings_ = new Settings(this);
+  // Add this to forbit clicking the main window
+  settings_->setWindowModality(Qt::ApplicationModal);
+  settings_->show();
 }
 
 void MainWindow::BindMenuActions() {
-  ui->menu_Settings->addAction(show_settings_act_);
+  connect(ui->actionShowSettings, &QAction::triggered, this,
+          &MainWindow::ShowSettingWidget);
 }

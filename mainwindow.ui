@@ -36,17 +36,26 @@
      <x>0</x>
      <y>0</y>
      <width>797</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Settings">
     <property name="title">
      <string>设置</string>
     </property>
+    <addaction name="actionShowSettings"/>
    </widget>
    <addaction name="menu_Settings"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionShowSettings">
+   <property name="text">
+    <string>ShowSettings</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;打开设置界面&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
