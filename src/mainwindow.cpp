@@ -10,9 +10,11 @@ MainWindow::MainWindow(QWidget *parent)
   BindMenuActions();
 
   // read configuration
-  editor_config_ = new EditorConfig(QString("config.json"));
 
-  ui->textEdit->setText(editor_config_->GetField(QString("NpcXlsxPath")));
+  editor_config_ = new EditorConfig(GlobalStrs::CONFIG_FILE_NAME);
+
+  ui->textEdit->setText(
+      editor_config_->GetField(GlobalStrs::NPC_XLSX_FILE_KEY));
   // ui->textEdit->setText(QString("Hello"));
 }
 
