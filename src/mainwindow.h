@@ -9,17 +9,19 @@ namespace Ui {
 class MainWindow;
 }
 
+class Settings;
+
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
-public:
+ public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
-private slots:
+ private slots:
   void ShowSettingWidget();
 
-private:
+ private:
   void CreateActions();
   void BindMenuActions();
 
@@ -28,4 +30,4 @@ private:
   Settings *settings_;
 };
 
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H

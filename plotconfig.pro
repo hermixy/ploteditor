@@ -15,14 +15,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-        settings.cpp
+        src/main.cpp \
+        src/mainwindow.cpp \
+        src/settings.cpp \
+        src/config.cpp
 
 HEADERS += \
-        mainwindow.h \
-        settings.h
+        src/mainwindow.h \
+        src/settings.h \
+        src/config.h
 
 FORMS += \
-    mainwindow.ui \
-    settings.ui
+    src/mainwindow.ui \
+    src/settings.ui

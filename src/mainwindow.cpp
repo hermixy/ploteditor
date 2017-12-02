@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "settings.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
@@ -17,7 +19,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::ShowSettingWidget() {
-  settings_ = new Settings(this);
+  settings_ = new Settings(nullptr);
   // Add this to forbit clicking the main window
   settings_->setWindowModality(Qt::ApplicationModal);
   settings_->show();
