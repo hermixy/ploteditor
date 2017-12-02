@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT += core gui
+#CONFIG += console
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,12 +19,13 @@ SOURCES += \
         src/main.cpp \
         src/mainwindow.cpp \
         src/settings.cpp \
-        src/config.cpp
+    src/editorconfig.cpp
 
 HEADERS += \
         src/mainwindow.h \
         src/settings.h \
-        src/config.h
+    src/editorconfig.h \
+    src/pch.h
 
 FORMS += \
     src/mainwindow.ui \

@@ -1,9 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "settings.h"
+#include "pch.h"
 
-#include <QMainWindow>
+#include "editorconfig.h"
+#include "settings.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,9 +26,11 @@ class MainWindow : public QMainWindow {
   void CreateActions();
   void BindMenuActions();
 
-  Ui::MainWindow *ui;
-
   Settings *settings_;
+  EditorConfig *editor_config_;
+
+ private:
+  Ui::MainWindow *ui;
 };
 
 #endif  // MAINWINDOW_H

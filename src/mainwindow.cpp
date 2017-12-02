@@ -8,10 +8,17 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
 
   BindMenuActions();
+
+  // read configuration
+  editor_config_ = new EditorConfig(QString("config.json"));
+
+  ui->textEdit->setText(editor_config_->GetField(QString("NpcXlsxPath")));
+  // ui->textEdit->setText(QString("Hello"));
 }
 
 MainWindow::~MainWindow() {
   delete ui;
+  delete editor_config_;
 
   if (nullptr != settings_) {
     delete settings_;
