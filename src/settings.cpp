@@ -3,11 +3,13 @@
 
 Settings::Settings(QWidget *) : ui(new Ui::Settings) {
   ui->setupUi(this);
+  setFixedSize(width(), height());
 
   filename_ = QApplication::applicationDirPath() + "/config.ini";
   qsettings_ = new QSettings(filename_, QSettings::IniFormat);
 
-  color_hex_checker_ = new QRegularExpression("^[0-9A-F]{6}$", QRegularExpression::NoPatternOption);
+  color_hex_checker_ =
+      new QRegularExpression("^#[0-9A-F]{6}$", QRegularExpression::NoPatternOption);
 
   BindActions();
   LoadSettings(qsettings_);
@@ -22,13 +24,26 @@ Settings::Settings(QWidget *) : ui(new Ui::Settings) {
 Settings::~Settings() {
   delete ui;
   delete qsettings_;
+  delete color_hex_checker_;
 }
 
 void Settings::BindActions() {
   connect(ui->btnSave, &QPushButton::clicked, this, &Settings::SaveSettings);
 
+  connect(ui->btnFindNpc, &QPushButton::clicked, this, &Settings::FindNpcFilePath);
+  connect(ui->btnFindPlot, &QPushButton::clicked, this, &Settings::FindPlotFilePath);
+  connect(ui->btnFindScene, &QPushButton::clicked, this, &Settings::FindSceneFilePath);
+
   connect(ui->textColor1, SIGNAL(textChanged(const QString &)), this,
           SLOT(OnColor1Changed(const QString &)));
+  connect(ui->textColor2, SIGNAL(textChanged(const QString &)), this,
+          SLOT(OnColor2Changed(const QString &)));
+  connect(ui->textColor3, SIGNAL(textChanged(const QString &)), this,
+          SLOT(OnColor3Changed(const QString &)));
+  connect(ui->textColor4, SIGNAL(textChanged(const QString &)), this,
+          SLOT(OnColor4Changed(const QString &)));
+  connect(ui->textColor5, SIGNAL(textChanged(const QString &)), this,
+          SLOT(OnColor5Changed(const QString &)));
 }
 
 void Settings::SetQLineTextPalette(QLineEdit *le, const QString &colorStr) {
@@ -100,11 +115,41 @@ QString Settings::GetPlotFilePath() {
   return qsettings_->value(GlobalStrs::PLOT_XLSX_FILE_KEY, "").toString();
 }
 
-void Settings::FindNpcFilePath() {}
+void Settings::FindNpcFilePath() {
+  QString filename =
+      QFileDialog::getOpenFileName(this, tr("Open File"), "C:\\", tr("Excel(*.xlsx)"));
 
-void Settings::FindPlotFilePath() {}
+  if (filename.isNull()) {
+    return;
+  } else {
+    npc_file_path_ = filename;
+    ui->textNpcPath->setText(filename);
+  }
+}
 
-void Settings::FindSceneFilePath() {}
+void Settings::FindPlotFilePath() {
+  QString filename =
+      QFileDialog::getOpenFileName(this, tr("Open File"), "C:\\", tr("Excel(*.xlsx)"));
+
+  if (filename.isNull()) {
+    return;
+  } else {
+    plot_file_path_ = filename;
+    ui->textPlotPath->setText(filename);
+  }
+}
+
+void Settings::FindSceneFilePath() {
+  QString filename =
+      QFileDialog::getOpenFileName(this, tr("Open File"), "C:\\", tr("Excel(*.xlsx)"));
+
+  if (filename.isNull()) {
+    return;
+  } else {
+    scene_file_path_ = filename;
+    ui->textScenePath->setText(filename);
+  }
+}
 
 void Settings::OnNpcFilePathChanged(const QString &new_path) {
   if (IsFileExists(new_path)) {
@@ -138,7 +183,7 @@ void Settings::OnColor1Changed(const QString &new_color) {
 
 void Settings::OnColor2Changed(const QString &new_color) {
   if (color_hex_checker_->match(new_color).hasMatch()) {
-    color1_name_ = new_color;
+    color2_name_ = new_color;
     ui->textColor2->setText(new_color);
 
     SetQLineTextPalette(ui->textColor2Eg, new_color);
@@ -147,7 +192,7 @@ void Settings::OnColor2Changed(const QString &new_color) {
 
 void Settings::OnColor3Changed(const QString &new_color) {
   if (color_hex_checker_->match(new_color).hasMatch()) {
-    color1_name_ = new_color;
+    color3_name_ = new_color;
     ui->textColor3->setText(new_color);
 
     SetQLineTextPalette(ui->textColor3Eg, new_color);
@@ -156,7 +201,7 @@ void Settings::OnColor3Changed(const QString &new_color) {
 
 void Settings::OnColor4Changed(const QString &new_color) {
   if (color_hex_checker_->match(new_color).hasMatch()) {
-    color1_name_ = new_color;
+    color4_name_ = new_color;
     ui->textColor4->setText(new_color);
 
     SetQLineTextPalette(ui->textColor4Eg, new_color);
@@ -165,7 +210,7 @@ void Settings::OnColor4Changed(const QString &new_color) {
 
 void Settings::OnColor5Changed(const QString &new_color) {
   if (color_hex_checker_->match(new_color).hasMatch()) {
-    color1_name_ = new_color;
+    color5_name_ = new_color;
     ui->textColor5->setText(new_color);
 
     SetQLineTextPalette(ui->textColor5Eg, new_color);

@@ -7,6 +7,7 @@
 #include <qstring.h>
 
 #include <qapplication.h>
+#include <qfiledialog.h>
 #include <qfileinfo.h>
 #include <qlineedit.h>
 #include <qmainwindow.h>
@@ -37,11 +38,11 @@ static const QString COLOR3_KEY = QString("Color3");  // #0000ff
 static const QString COLOR4_KEY = QString("Color4");  // #1f2f3f
 static const QString COLOR5_KEY = QString("Color5");  // #4f5f6f
 
-static const QString COLOR1 = QString("#ff0000");  // #ff0000
-static const QString COLOR2 = QString("#00ff00");  // #00ff00
-static const QString COLOR3 = QString("#0000ff");  // #0000ff
-static const QString COLOR4 = QString("#1f2f3f");  // #1f2f3f
-static const QString COLOR5 = QString("#4f5f6f");  // #4f5f6f
+static const QString COLOR1 = QString("#FF0000");  // #ff0000
+static const QString COLOR2 = QString("#00FF00");  // #00ff00
+static const QString COLOR3 = QString("#0000FF");  // #0000ff
+static const QString COLOR4 = QString("#1F2F3F");  // #1f2f3f
+static const QString COLOR5 = QString("#4F5F6F");  // #4f5f6f
 }
 
 static bool IsFileExists(const QString &path) {

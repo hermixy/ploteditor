@@ -23,8 +23,6 @@ class Settings : public QWidget {
   // bind the buttons' actions
   void BindActions();
 
-  void OnColor5Changed(const QString &);
-
   void SetQLineTextPalette(QLineEdit *, const QString &);
 
   void LoadSettings(const QSettings *);
@@ -50,6 +48,7 @@ class Settings : public QWidget {
   void OnColor2Changed(const QString &);
   void OnColor3Changed(const QString &);
   void OnColor4Changed(const QString &);
+  void OnColor5Changed(const QString &);
 
  private:
   QString npc_file_path_;

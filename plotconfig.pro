@@ -18,14 +18,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         src/main.cpp \
         src/mainwindow.cpp \
-        src/settings.cpp \
-    src/editorconfig.cpp
+        src/settings.cpp
 
 HEADERS += \
         src/mainwindow.h \
         src/settings.h \
-    src/editorconfig.h \
-    src/pch.h
+        src/pch.h
 
 FORMS += \
     src/mainwindow.ui \

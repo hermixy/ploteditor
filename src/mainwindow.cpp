@@ -8,18 +8,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
   BindMenuActions();
 
-  // read configuration
-
-  editor_config_ = new EditorConfig(GlobalStrs::CONFIG_FILE_NAME);
-
-  ui->textEdit->setText(editor_config_->GetField(GlobalStrs::NPC_XLSX_FILE_KEY));
   // ui->textEdit->setText(QString("Hello"));
 }
 
-MainWindow::~MainWindow() {
-  delete ui;
-  delete editor_config_;
-}
+MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::ShowSettingWidget() {
   auto settings_ = new Settings(nullptr);

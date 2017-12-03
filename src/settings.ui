@@ -7,11 +7,17 @@
     <x>0</x>
     <y>0</y>
     <width>512</width>
-    <height>411</height>
+    <height>412</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>设置</string>
   </property>
   <widget class="QPushButton" name="btnSave">
    <property name="geometry">

@@ -3,7 +3,6 @@
 
 #include "pch.h"
 
-#include "editorconfig.h"
 #include "settings.h"
 
 namespace Ui {
@@ -24,7 +23,6 @@ class MainWindow : public QMainWindow {
   void CreateActions();
   void BindMenuActions();
 
-  EditorConfig *editor_config_;
   QString settings_filename_;
 
  private:
