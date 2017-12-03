@@ -10,8 +10,6 @@ namespace Ui {
 class MainWindow;
 }
 
-class Settings;
-
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
@@ -26,8 +24,8 @@ class MainWindow : public QMainWindow {
   void CreateActions();
   void BindMenuActions();
 
-  Settings *settings_;
   EditorConfig *editor_config_;
+  QString settings_filename_;
 
  private:
   Ui::MainWindow *ui;

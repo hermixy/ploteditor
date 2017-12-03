@@ -6,144 +6,460 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>490</width>
-    <height>361</height>
+    <width>512</width>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="labelNpcFilePath">
+  <widget class="QPushButton" name="btnSave">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>40</y>
-     <width>90</width>
-     <height>22</height>
+     <x>200</x>
+     <y>370</y>
+     <width>101</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Microsoft YaHei UI</family>
+     <family>微软雅黑</family>
+     <pointsize>10</pointsize>
     </font>
    </property>
    <property name="text">
-    <string>Npc.xlsx 路径</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    <string>保存</string>
    </property>
   </widget>
-  <widget class="QLabel" name="labelPlotFilePath">
+  <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>70</y>
-     <width>90</width>
-     <height>22</height>
+     <x>10</x>
+     <y>220</y>
+     <width>491</width>
+     <height>141</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Microsoft YaHei UI</family>
+     <family>微软雅黑</family>
+     <pointsize>10</pointsize>
     </font>
    </property>
-   <property name="text">
-    <string>Plot.xlsx 路径</string>
+   <property name="title">
+    <string>对话颜色区分 (仅用作工具区分)</string>
    </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
+   <widget class="QLabel" name="labelColor5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>Color 5</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelColor3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>Color 3</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelColor4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>90</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>Color 4</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelColor1">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>Color 1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelColor2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>Color 2</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textColor1">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>30</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="maxLength">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textColor2">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>50</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="maxLength">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textColor3">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>70</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="maxLength">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textColor4">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>90</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="maxLength">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textColor5">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>110</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="maxLength">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textColor1Eg">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>30</y>
+      <width>291</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>颜色测试, 这是一句对话</string>
+    </property>
+    <property name="maxLength">
+     <number>65535</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textColor2Eg">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>50</y>
+      <width>291</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>颜色测试, 这是一句对话</string>
+    </property>
+    <property name="maxLength">
+     <number>65535</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textColor3Eg">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>70</y>
+      <width>291</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>颜色测试, 这是一句对话</string>
+    </property>
+    <property name="maxLength">
+     <number>65535</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textColor4Eg">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>90</y>
+      <width>291</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>颜色测试, 这是一句对话</string>
+    </property>
+    <property name="maxLength">
+     <number>65535</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textColor5Eg">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>110</y>
+      <width>291</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>颜色测试, 这是一句对话</string>
+    </property>
+    <property name="maxLength">
+     <number>65535</number>
+    </property>
+   </widget>
   </widget>
-  <widget class="QLabel" name="labelSceneFilePath">
+  <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>100</y>
-     <width>90</width>
-     <height>22</height>
+     <x>10</x>
+     <y>30</y>
+     <width>491</width>
+     <height>161</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Microsoft YaHei UI</family>
+     <family>微软雅黑</family>
+     <pointsize>10</pointsize>
     </font>
    </property>
-   <property name="text">
-    <string>Scene.xlsx 路径</string>
+   <property name="title">
+    <string>配置表文件路径</string>
    </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnFindNpc">
-   <property name="geometry">
-    <rect>
-     <x>450</x>
-     <y>40</y>
-     <width>28</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>...</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnFindPlot">
-   <property name="geometry">
-    <rect>
-     <x>450</x>
-     <y>70</y>
-     <width>28</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>...</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnFindScene">
-   <property name="geometry">
-    <rect>
-     <x>450</x>
-     <y>100</y>
-     <width>28</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>...</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="textNpcPath">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>40</y>
-     <width>320</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="textPlotPath">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>70</y>
-     <width>320</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="textScenePath">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>100</y>
-     <width>320</width>
-     <height>22</height>
-    </rect>
-   </property>
+   <widget class="QLineEdit" name="textScenePath">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>120</y>
+      <width>320</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelNpcFilePath">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>40</y>
+      <width>101</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>Npc.xlsx 路径</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelPlotFilePath">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>80</y>
+      <width>101</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>Plot.xlsx 路径</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textNpcPath">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>40</y>
+      <width>320</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnFindScene">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>120</y>
+      <width>28</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSceneFilePath">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>120</y>
+      <width>101</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>Scene.xlsx 路径</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnFindPlot">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>80</y>
+      <width>28</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnFindNpc">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>40</y>
+      <width>28</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textPlotPath">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>80</y>
+      <width>320</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

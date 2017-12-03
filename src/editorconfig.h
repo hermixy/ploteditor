@@ -4,21 +4,23 @@
 #include "pch.h"
 
 class EditorConfig {
-public:
+ public:
   explicit EditorConfig(const QString &);
   ~EditorConfig();
 
-public:
+ public:
   QString GetField(const QString &);
 
-private:
+ private:
   void ParserData(const QString &);
-  void CreateConfigFile();
 
-private:
+  // If the configuration file not found, then create a default file.
+  void CreateConfigFile(const QString &);
+
+ private:
   QString json_file_path_;
 
   QJsonDocument json_document_;
 };
 
-#endif // CONFIG_H
+#endif  // CONFIG_H
