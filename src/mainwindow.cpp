@@ -16,7 +16,7 @@ MainWindow::~MainWindow() { delete ui; }
 void MainWindow::ShowSettingWidget() {
   auto settings_ = new Settings(nullptr);
   // Add this to forbit clicking the main window
-  settings_->setWindowModality(Qt::ApplicationModal);
+  settings_->setWindowModality(Qt::WindowModal);
   settings_->show();
 }
 

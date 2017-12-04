@@ -5,9 +5,14 @@
 #-------------------------------------------------
 
 QT += core gui
+
+INCLUDEPATH = ./3rdlibs/libxl/include_cpp
+LIBS += ./3rdlibs/libxl/lib/libxl.lib
+
 CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 
 TARGET = plotconfig
 TEMPLATE = app

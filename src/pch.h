@@ -1,22 +1,20 @@
 #ifndef PCH_H
 #define PCH_H
 
-#include <qfile.h>
-#include <qjsondocument.h>
-#include <qjsonobject.h>
-#include <qstring.h>
-
 #include <qapplication.h>
+#include <qfile.h>
 #include <qfiledialog.h>
 #include <qfileinfo.h>
+#include <qjsondocument.h>
+#include <qjsonobject.h>
 #include <qlineedit.h>
 #include <qmainwindow.h>
 #include <qmessagebox.h>
 #include <qpushbutton.h>
-#include <qsettings.h>
-#include <qwidget.h>
-
 #include <qregularexpression.h>
+#include <qsettings.h>
+#include <qstring.h>
+#include <qwidget.h>
 
 static void PrintMsg(const QString &content) {
   QMessageBox msg_box;
@@ -25,8 +23,6 @@ static void PrintMsg(const QString &content) {
 }
 
 namespace GlobalStrs {
-
-// some fixed data definition
 static const QString CONFIG_FILE_NAME = QString("config.json");
 static const QString NPC_XLSX_FILE_KEY = QString("NpcXlsxPath");
 static const QString PLOT_XLSX_FILE_KEY = QString("PlotXlsxPath");

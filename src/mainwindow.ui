@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>797</width>
-    <height>529</height>
+    <width>1093</width>
+    <height>475</height>
    </rect>
   </property>
   <property name="font">
@@ -18,31 +18,24 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QTextEdit" name="textEdit">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>340</y>
-      <width>191</width>
-      <height>70</height>
-     </rect>
-    </property>
-   </widget>
-  </widget>
+  <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>797</width>
+     <width>1093</width>
      <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Settings">
     <property name="title">
-     <string>设置</string>
+     <string>Functions</string>
     </property>
+    <addaction name="actionReloadNpcFile"/>
+    <addaction name="actionReloadPlotFile"/>
+    <addaction name="actionReloadSceneFile"/>
+    <addaction name="separator"/>
     <addaction name="actionShowSettings"/>
    </widget>
    <addaction name="menu_Settings"/>
@@ -50,10 +43,37 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionShowSettings">
    <property name="text">
-    <string>ShowSettings</string>
+    <string>设置</string>
    </property>
    <property name="toolTip">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;打开设置界面&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+1</string>
+   </property>
+  </action>
+  <action name="actionReloadNpcFile">
+   <property name="text">
+    <string>重载 Npc.xlsx</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+2</string>
+   </property>
+  </action>
+  <action name="actionReloadPlotFile">
+   <property name="text">
+    <string>重载 Plot.xlsx</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+3</string>
+   </property>
+  </action>
+  <action name="actionReloadSceneFile">
+   <property name="text">
+    <string>重载 Scene.xlsx</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+4</string>
    </property>
   </action>
  </widget>
