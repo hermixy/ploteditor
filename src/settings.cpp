@@ -5,7 +5,7 @@ Settings::Settings(QWidget *) : ui(new Ui::Settings) {
   ui->setupUi(this);
   setFixedSize(width(), height());
 
-  filename_ = QApplication::applicationDirPath() + "/config.ini";
+  filename_ = GetINIFilePath();
   qsettings_ = new QSettings(filename_, QSettings::IniFormat);
 
   color_hex_checker_ =
