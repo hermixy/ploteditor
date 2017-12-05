@@ -18,6 +18,10 @@
 
 #include "libxl.h"
 
+// global variables
+
+// end global variables
+
 namespace GlobalStrs {
 static const QString CONFIG_FILE_NAME = QString("config.json");
 static const QString NPC_XLSX_FILE_KEY = QString("NpcXlsxPath");

@@ -2,6 +2,7 @@
 #define SETTINGS_H
 
 #include "pch.h"
+#include "settings_data.h"
 
 namespace Ui {
 class Settings;
@@ -25,7 +26,7 @@ class Settings : public QWidget {
 
   void SetQLineTextPalette(QLineEdit *, const QString &);
 
-  void LoadSettings(const QSettings *);
+  void LoadSettings();
   void SaveSettings();
 
   void IsHexColroStr(const QString &);
@@ -63,8 +64,8 @@ class Settings : public QWidget {
 
  private:
   Ui::Settings *ui;
-  QString filename_;
-  QSettings *qsettings_;
+
+  SettingsData *settings_data_;
   QRegularExpression *color_hex_checker_;
 };
 

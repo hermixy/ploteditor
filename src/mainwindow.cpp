@@ -7,8 +7,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   ui->setupUi(this);
 
   BindMenuActions();
-
-  // ui->textEdit->setText(QString("Hello"));
 }
 
 MainWindow::~MainWindow() {
@@ -17,7 +15,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::ShowSettingWidget() {
   auto settings_ = new Settings(nullptr);
-  // Add this to forbit clicking the main window
+
   settings_->setWindowModality(Qt::WindowModal);
   settings_->show();
 }

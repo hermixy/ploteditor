@@ -13,34 +13,31 @@ XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QStrin
   plot_path.toWCharArray(wplot_path);
   scene_path.toWCharArray(wscene_path);
 
-  if (npc_book_->load(wnpc_path)) {
-    PrintMsg("Load Npc Book.");
-  }
+  //  if (npc_book_->load(wnpc_path)) {
+  //    PrintMsg("Load Npc Book.");
+  //  }
 
   if (plot_book_->load(wplot_path)) {
     PrintMsg("Load Plot Book.");
   }
 
-  if (scene_book_->load(wscene_path)) {
-    PrintMsg("Load Scene Book.");
-  }
+  //  if (scene_book_->load(wscene_path)) {
+  //    PrintMsg("Load Scene Book.");
+  //  }
 }
 
 XlsxSQL::~XlsxSQL() {
-  if (nullptr != book_)
-    delete (book_);
+  if (nullptr != plot_book_)
+    delete (plot_book_);
 
-  if (nullptr != npc_sheet_)
-    delete (npc_sheet_);
+  if (nullptr != npc_book_)
+    delete (npc_book_);
 
-  if (nullptr != plot_sheet_)
-    delete (plot_sheet_);
-
-  if (nullptr != scene_sheet_)
-    delete (scene_sheet_);
+  if (nullptr != scene_book_)
+    delete (scene_book_);
 }
 
-XlsxSQL::GetCell(libxl::Sheet *sheet, unsigned row, unsigned col) {
+QString XlsxSQL::GetCell(libxl::Sheet *sheet, unsigned row, unsigned col) {
   QString msg = "";
   libxl::CellType cellType = sheet->cellType(row, col);
 
@@ -50,12 +47,12 @@ XlsxSQL::GetCell(libxl::Sheet *sheet, unsigned row, unsigned col) {
       break;
     }
     case libxl::CELLTYPE_STRING: {
-      const char *p = sheet->readStr(row, col);
-      msg = QString(QLatin1String(p)).toLatin1();
+      const wchar_t *p = sheet->readStr(row, col);
+      msg = QString::fromWCharArray(p);
       break;
     }
     case libxl::CELLTYPE_BOOLEAN: {
-      bool b = sheet1->readBool(row, col);
+      bool b = sheet->readBool(row, col);
       if (b)
         msg = "TRUE";
       else
@@ -63,12 +60,8 @@ XlsxSQL::GetCell(libxl::Sheet *sheet, unsigned row, unsigned col) {
       break;
     }
     case libxl::CELLTYPE_NUMBER: {
-      int d = sheet1->readNum(row, col);
+      int d = sheet->readNum(row, col);
       msg = QString::number(d, 10);
-      break;
-    }
-    case libxl::CELLTYPE_BLANK: {
-      msg = "";
       break;
     }
     case libxl::CELLTYPE_ERROR: {
