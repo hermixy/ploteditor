@@ -1,5 +1,7 @@
 # C++ objects and libs
 
+3rdlibs/
+
 *.slo
 *.lo
 *.o
