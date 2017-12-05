@@ -4,6 +4,7 @@
 #include "pch.h"
 
 #include "settings.h"
+#include "xlsx_sql.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,8 @@ class MainWindow : public QMainWindow {
   void BindMenuActions();
 
   QString settings_filename_;
+
+  XlsxSQL *xlsx_sql_;
 
  private:
   Ui::MainWindow *ui;

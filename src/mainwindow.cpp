@@ -11,7 +11,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   // ui->textEdit->setText(QString("Hello"));
 }
 
-MainWindow::~MainWindow() { delete ui; }
+MainWindow::~MainWindow() {
+  delete ui;
+}
 
 void MainWindow::ShowSettingWidget() {
   auto settings_ = new Settings(nullptr);
