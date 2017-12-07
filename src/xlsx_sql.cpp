@@ -13,17 +13,17 @@ XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QStrin
   plot_path.toWCharArray(wplot_path);
   scene_path.toWCharArray(wscene_path);
 
-  //  if (npc_book_->load(wnpc_path)) {
-  //    PrintMsg("Load Npc Book.");
-  //  }
+  if (npc_book_->load(wnpc_path)) {
+    PrintMsg("Load Npc Book.");
+  }
 
   if (plot_book_->load(wplot_path)) {
     PrintMsg("Load Plot Book.");
   }
 
-  //  if (scene_book_->load(wscene_path)) {
-  //    PrintMsg("Load Scene Book.");
-  //  }
+  if (scene_book_->load(wscene_path)) {
+    PrintMsg("Load Scene Book.");
+  }
 }
 
 XlsxSQL::~XlsxSQL() {

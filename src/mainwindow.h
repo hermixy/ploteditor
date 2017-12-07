@@ -21,12 +21,16 @@ class MainWindow : public QMainWindow {
   void ShowSettingWidget();
 
  private:
+  bool CheckAllConfigFiles();
+  void ReloadSettings();
+
   void CreateActions();
   void BindMenuActions();
 
   QString settings_filename_;
 
   XlsxSQL *xlsx_sql_;
+  SettingsData *settings_data_;
 
  private:
   Ui::MainWindow *ui;

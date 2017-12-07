@@ -28,8 +28,6 @@ Settings::~Settings() {
 }
 
 void Settings::BindActions() {
-  connect(ui->btnSave, &QPushButton::clicked, this, &Settings::SaveSettings);
-
   connect(ui->btnFindNpc, &QPushButton::clicked, this, &Settings::FindNpcFilePath);
   connect(ui->btnFindPlot, &QPushButton::clicked, this, &Settings::FindPlotFilePath);
   connect(ui->btnFindScene, &QPushButton::clicked, this, &Settings::FindSceneFilePath);
@@ -111,7 +109,7 @@ void Settings::FindPlotFilePath() {
   } else {
     plot_file_path_ = filename;
     ui->textPlotPath->setText(plot_file_path_);
-    settings_data_->SetNpcXlsxPath(plot_file_path_);
+    settings_data_->SetPlotXlsxPath(plot_file_path_);
   }
 }
 
@@ -124,7 +122,7 @@ void Settings::FindSceneFilePath() {
   } else {
     scene_file_path_ = filename;
     ui->textScenePath->setText(scene_file_path_);
-    settings_data_->SetNpcXlsxPath(scene_file_path_);
+    settings_data_->SetSceneXlsxPath(scene_file_path_);
   }
 }
 

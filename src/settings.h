@@ -27,7 +27,6 @@ class Settings : public QWidget {
   void SetQLineTextPalette(QLineEdit *, const QString &);
 
   void LoadSettings();
-  void SaveSettings();
 
   void IsHexColroStr(const QString &);
 

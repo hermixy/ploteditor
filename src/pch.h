@@ -39,6 +39,11 @@ static const QString COLOR2 = QString("#00FF00");  // #00ff00
 static const QString COLOR3 = QString("#0000FF");  // #0000ff
 static const QString COLOR4 = QString("#1F2F3F");  // #1f2f3f
 static const QString COLOR5 = QString("#4F5F6F");  // #4f5f6f
+
+static const QString WARNING_NO_NPC_FILE = QString("没有选定Npc配置文件\n");
+static const QString WARNING_NO_SCENE_FILE = QString("没有选定Scene配置文件\n");
+static const QString WARNING_NO_PLOT_FILE = QString("没有选定Plot配置文件\n");
+
 }  // namespace GlobalStrs
 
 static QString GetINIFilePath() {
