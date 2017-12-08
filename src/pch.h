@@ -16,6 +16,8 @@
 #include <qstring.h>
 #include <qwidget.h>
 
+#include <xlsxdocument.h>
+
 // global variables
 
 // end global variables

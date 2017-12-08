@@ -6,78 +6,53 @@
  * @param scene path
  * */
 XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QString &scene_path) {
-  npc_book_ = xlCreateBook();
-  plot_book_ = xlCreateBook();
-  scene_book_ = xlCreateBook();
+  npc_doc_ = new QXlsx::Document(npc_path);
+  scene_doc_ = new QXlsx::Document(scene_path);
+  plot_doc_ = new QXlsx::Document(plot_path);
 
-  const wchar_t *x = L"Halil Kural";
-  const wchar_t *y = L"windows-2723210a07c4e90162b26966a8jcdboe";
+  //  QStringList name_list = npc_doc_->sheetNames();
+  //  PrintMsg(name_list.join(','));
 
-  npc_book_->setKey(x, y);
-  plot_book_->setKey(x, y);
-  scene_book_->setKey(x, y);
+  //  auto str = GetCell(npc_doc_->currentWorksheet(), 23, 11);
+  //  PrintMsg(str);
 
-  wchar_t wnpc_path[256];
-  wchar_t wplot_path[256];
-  wchar_t wscene_path[256];
+  auto cell_range = npc_doc_->dimension();
 
-  npc_path.toWCharArray(wnpc_path);
-  plot_path.toWCharArray(wplot_path);
-  scene_path.toWCharArray(wscene_path);
-
-  if (npc_book_->load(wnpc_path)) {
-    PrintMsg("Load Npc Book.");
-  }
-
-  if (plot_book_->load(wplot_path)) {
-    PrintMsg("Load Plot Book.");
-  }
-
-  if (scene_book_->load(wscene_path)) {
-    PrintMsg("Load Scene Book.");
-  }
+  PrintMsg(QString::number(cell_range.lastColumn()) + ", " + QString::number(cell_range.lastRow()));
 }
 
 XlsxSQL::~XlsxSQL() {
-  if (nullptr != plot_book_)
-    delete (plot_book_);
+  if (nullptr != plot_doc_)
+    delete (plot_doc_);
 
-  if (nullptr != npc_book_)
-    delete (npc_book_);
+  if (nullptr != npc_doc_)
+    delete (npc_doc_);
 
-  if (nullptr != scene_book_)
-    delete (scene_book_);
+  if (nullptr != scene_doc_)
+    delete (scene_doc_);
 }
 
-QString XlsxSQL::GetCell(libxl::Sheet *sheet, unsigned row, unsigned col) {
+QString XlsxSQL::GetCell(QXlsx::Worksheet *sheet, unsigned row, unsigned col) {
   QString msg = "";
-  libxl::CellType cellType = sheet->cellType(row, col);
 
-  switch (cellType) {
-    case libxl::CELLTYPE_BLANK: {
-      msg = "";
+  QXlsx::Cell *cell = sheet->cellAt(row, col);
+  switch (cell->cellType()) {
+    case QXlsx::Cell::BooleanType: {
+      msg = "Boolean " + cell->value().toString();
       break;
     }
-    case libxl::CELLTYPE_STRING: {
-      const wchar_t *p = sheet->readStr(row, col);
-      msg = QString::fromWCharArray(p);
+    case QXlsx::Cell::NumberType: {
+      msg = "Number " + cell->value().toString();
       break;
     }
-    case libxl::CELLTYPE_BOOLEAN: {
-      bool b = sheet->readBool(row, col);
-      if (b)
-        msg = "TRUE";
-      else
-        msg = "FALSE";
+    case QXlsx::Cell::ErrorType: {
+      msg = "Error " + cell->value().toString();
       break;
     }
-    case libxl::CELLTYPE_NUMBER: {
-      int d = sheet->readNum(row, col);
-      msg = QString::number(d, 10);
-      break;
-    }
-    case libxl::CELLTYPE_ERROR: {
-      msg = "";
+    case QXlsx::Cell::SharedStringType:
+    case QXlsx::Cell::StringType:
+    case QXlsx::Cell::InlineStringType: {
+      msg = "String " + cell->value().toString();
       break;
     }
   }

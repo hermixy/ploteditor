@@ -21,18 +21,18 @@ class XlsxSQL {
 
  private:
   //
-  // @param libxl::Sheet
+  // @param QXlsx::Worksheet *
   // @param row
   // @param col
   //
-  QString GetCell(libxl::Sheet *, unsigned, unsigned);
+  QString GetCell(QXlsx::Worksheet *, unsigned, unsigned);
 
  private:
   QString filename_;
 
-  libxl::Book *plot_book_;
-  libxl::Book *npc_book_;
-  libxl::Book *scene_book_;
+  QXlsx::Document *plot_doc_;
+  QXlsx::Document *npc_doc_;
+  QXlsx::Document *scene_doc_;
 };
 
 #endif  // XLSX_SQL_H

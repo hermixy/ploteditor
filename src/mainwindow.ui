@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1093</width>
-    <height>475</height>
+    <height>777</height>
    </rect>
   </property>
   <property name="font">
@@ -22,83 +22,132 @@
    <locale language="Chinese" country="China"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QGroupBox" name="warningGroup">
+   <widget class="QProgressBar" name="progressBar">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>100</y>
-      <width>361</width>
-      <height>201</height>
+      <x>55</x>
+      <y>721</y>
+      <width>91</width>
+      <height>25</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>微软雅黑</family>
-      <pointsize>10</pointsize>
-     </font>
+    <property name="value">
+     <number>24</number>
     </property>
-    <property name="title">
-     <string>警告</string>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>440</y>
+      <width>501</width>
+      <height>311</height>
+     </rect>
     </property>
-    <widget class="QLabel" name="labelWarning">
+    <widget class="QGroupBox" name="warningGroup">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>29</y>
+       <x>90</x>
+       <y>70</y>
        <width>341</width>
-       <height>121</height>
-      </rect>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::NoContextMenu</enum>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="locale">
-      <locale language="Chinese" country="China"/>
-     </property>
-     <property name="text">
-      <string>Warning</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton">
-     <property name="geometry">
-      <rect>
-       <x>140</x>
-       <y>170</y>
-       <width>75</width>
-       <height>25</height>
+       <height>231</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>9</pointsize>
+       <family>微软雅黑</family>
+       <pointsize>10</pointsize>
       </font>
      </property>
-     <property name="locale">
-      <locale language="Chinese" country="China"/>
+     <property name="title">
+      <string>警告</string>
      </property>
-     <property name="text">
-      <string>重载</string>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="labelWarning">
+        <property name="contextMenuPolicy">
+         <enum>Qt::NoContextMenu</enum>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="locale">
+         <locale language="Chinese" country="China"/>
+        </property>
+        <property name="text">
+         <string>Warning</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="locale">
+         <locale language="Chinese" country="China"/>
+        </property>
+        <property name="text">
+         <string>重载</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
-   <widget class="QLabel" name="labelTest">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>833</x>
-      <y>369</y>
-      <width>141</width>
-      <height>41</height>
+      <x>20</x>
+      <y>40</y>
+      <width>831</width>
+      <height>481</height>
      </rect>
     </property>
-    <property name="text">
-     <string>TextLabel</string>
+    <property name="currentIndex">
+     <number>1</number>
     </property>
+    <widget class="QWidget" name="Plot">
+     <attribute name="title">
+      <string>Tab 1</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="Npc">
+     <attribute name="title">
+      <string>Tab 2</string>
+     </attribute>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QTreeWidget" name="NpcTree">
+        <column>
+         <property name="text">
+          <string>NpcSn</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>NpcName</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>SceneName</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>SceneSn</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -107,7 +156,7 @@
      <x>0</x>
      <y>0</y>
      <width>1093</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Settings">
@@ -122,7 +171,6 @@
    </widget>
    <addaction name="menu_Settings"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionShowSettings">
    <property name="text">
     <string>设置</string>
