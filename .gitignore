@@ -1,7 +1,5 @@
 # C++ objects and libs
 
-3rdparty/
-
 *.slo
 *.lo
 *.o
