@@ -6,11 +6,7 @@
 
 QT += core gui
 
-INCLUDEPATH += \
-  D:/QtProjects/plotconfig/3rdlibs/libxl/include_cpp
-
-LIBS += \
-  D:/QtProjects/plotconfig/3rdlibs/libxl/lib64/libxl.lib
+include(3rdparty/QtXlsxWriter/src/xlsx/qtxlsx.pri)
 
 CONFIG += c++11
 

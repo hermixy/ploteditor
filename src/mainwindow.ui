@@ -87,6 +87,19 @@
      </property>
     </widget>
    </widget>
+   <widget class="QLabel" name="labelTest">
+    <property name="geometry">
+     <rect>
+      <x>833</x>
+      <y>369</y>
+      <width>141</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
   settings_data_ = new SettingsData();
 
+  //  xlsx_sql_ = new XlsxSQL(settings_data_->GetPlotXlsxPath(), settings_data_->GetNpcXlsxPath(),
+  //                          settings_data_->GetScenePlotXlsxPath());
+
   CheckAllConfigFiles();
 
   BindMenuActions();
@@ -15,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 MainWindow::~MainWindow() {
   delete ui;
+
+  delete settings_data_;
+  //  delete xlsx_sql_;
 }
 
 bool MainWindow::CheckAllConfigFiles() {

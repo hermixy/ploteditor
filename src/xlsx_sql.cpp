@@ -1,9 +1,21 @@
 #include "xlsx_sql.h"
 
+/*
+ * @param plot path
+ * @param npc path
+ * @param scene path
+ * */
 XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QString &scene_path) {
   npc_book_ = xlCreateBook();
   plot_book_ = xlCreateBook();
   scene_book_ = xlCreateBook();
+
+  const wchar_t *x = L"Halil Kural";
+  const wchar_t *y = L"windows-2723210a07c4e90162b26966a8jcdboe";
+
+  npc_book_->setKey(x, y);
+  plot_book_->setKey(x, y);
+  scene_book_->setKey(x, y);
 
   wchar_t wnpc_path[256];
   wchar_t wplot_path[256];

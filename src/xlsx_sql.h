@@ -6,11 +6,6 @@
 
 class XlsxSQL {
  public:
-  //
-  // @param QString Plot.xlsx path
-  // @param QString Npc.xlsx path
-  // @param QString Scene.xlsx path
-  //
   XlsxSQL(const QString &, const QString &, const QString &);
   ~XlsxSQL();
 
