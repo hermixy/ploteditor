@@ -1,6 +1,6 @@
 # C++ objects and libs
 
-3rdlibs/
+3rdparty/
 
 *.slo
 *.lo
