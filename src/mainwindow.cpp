@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   CheckAllConfigFiles();
 
   BindMenuActions();
+
+  FillNpcTab();
 }
 
 MainWindow::~MainWindow() {
@@ -53,6 +55,18 @@ bool MainWindow::CheckAllConfigFiles() {
 }
 
 void MainWindow::ReloadSettings() {}
+
+void MainWindow::FillNpcTab() {
+  for (int i = 1; i < 10; i++) {
+    QTreeWidgetItem *item = new QTreeWidgetItem();
+    item->setText(0, QString::number(i * 1));
+    item->setText(1, QString::number(i * 2));
+    item->setText(2, QString::number(i * 3));
+    item->setText(3, QString::number(i * 4));
+
+    ui->treeNpc->insertTopLevelItem(0, item);
+  }
+}
 
 void MainWindow::ShowSettingWidget() {
   auto settings_ = new Settings(nullptr);

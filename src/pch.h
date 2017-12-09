@@ -16,6 +16,10 @@
 #include <qstring.h>
 #include <qwidget.h>
 
+#include <QtSql/qsql.h>
+#include <QtSql/qsqldatabase.h>
+#include <QtSql/qsqlquery.h>
+
 #include <xlsxdocument.h>
 
 // global variables

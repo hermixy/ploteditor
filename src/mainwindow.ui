@@ -112,18 +112,21 @@
     <property name="currentIndex">
      <number>1</number>
     </property>
-    <widget class="QWidget" name="Plot">
+    <widget class="QWidget" name="tabPlot">
      <attribute name="title">
       <string>Tab 1</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="Npc">
+    <widget class="QWidget" name="tabNpc">
      <attribute name="title">
       <string>Tab 2</string>
      </attribute>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
-       <widget class="QTreeWidget" name="NpcTree">
+       <widget class="QTreeWidget" name="treeNpc">
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
         <column>
          <property name="text">
           <string>NpcSn</string>
@@ -156,7 +159,7 @@
      <x>0</x>
      <y>0</y>
      <width>1093</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Settings">

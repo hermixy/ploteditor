@@ -10,9 +10,11 @@ class XlsxSQL {
   ~XlsxSQL();
 
  public:
-  void CreatePlotTable();
-  void CreateNpcTable();
-  void CreateSceneTable();
+  bool CreateDB();
+
+  bool CreatePlotTable();
+  bool CreateNpcTable();
+  bool CreateSceneTable();
 
  public:
   void ReloadPlotXlsx();
@@ -33,6 +35,8 @@ class XlsxSQL {
   QXlsx::Document *plot_doc_;
   QXlsx::Document *npc_doc_;
   QXlsx::Document *scene_doc_;
+
+  QSqlDatabase db_;
 };
 
 #endif  // XLSX_SQL_H
