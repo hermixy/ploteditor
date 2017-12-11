@@ -16,9 +16,14 @@ XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QStrin
   //  auto str = GetCell(npc_doc_->currentWorksheet(), 23, 11);
   //  PrintMsg(str);
 
-  auto cell_range = npc_doc_->dimension();
+  //  auto cell_range = npc_doc_->dimension();
 
-  PrintMsg(QString::number(cell_range.lastColumn()) + ", " + QString::number(cell_range.lastRow()));
+  //  PrintMsg(QString::number(cell_range.lastColumn()) + ", " +
+  //  QString::number(cell_range.lastRow()));
+
+  if (!ConnectDB()) {
+    PrintMsg("ERROR: CREATE SQLITE DB FAILED.");
+  }
 }
 
 XlsxSQL::~XlsxSQL() {
@@ -30,6 +35,38 @@ XlsxSQL::~XlsxSQL() {
 
   if (nullptr != scene_doc_)
     delete (scene_doc_);
+
+  if (nullptr != db_) {
+    db_.close();
+    delete db_;
+  }
+}
+
+bool XlsxSQL::ConnectDB() {
+  db_ = QSqlDatabase::addDatabase("QSQLITE");
+  db_.setDatabaseName(GetDBFilePath());
+
+  if (!db_.open()) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+bool XlsxSQL::CreatePlotTable() {
+  return false;
+}
+
+bool XlsxSQL::CreateNpcTable() {
+  return false;
+}
+
+bool XlsxSQL::CreateSceneTable() {
+  return false;
+}
+
+bool XlsxSQL::CreateSceneNpcTable() {
+  return false;
 }
 
 QString XlsxSQL::GetCell(QXlsx::Worksheet *sheet, unsigned row, unsigned col) {

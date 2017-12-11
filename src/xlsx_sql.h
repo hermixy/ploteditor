@@ -10,11 +10,13 @@ class XlsxSQL {
   ~XlsxSQL();
 
  public:
-  bool CreateDB();
+  bool ConnectDB();
 
   bool CreatePlotTable();
   bool CreateNpcTable();
   bool CreateSceneTable();
+
+  bool CreateSceneNpcTable();
 
  public:
   void ReloadPlotXlsx();

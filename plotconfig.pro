@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += core gui
+QT += core gui sql
 
 include(3rdparty/QtXlsxWriter/src/xlsx/qtxlsx.pri)
 
