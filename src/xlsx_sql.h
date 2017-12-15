@@ -13,6 +13,13 @@ class XlsxSQL {
   bool ConnectDB();
 
   bool CreatePlotTable();
+
+  /*
+   * @param current selected sheet name
+   * @param current sheet name
+   * */
+  bool CreateSubPlotTable(const QString &, const QString &);
+
   bool CreateNpcTable();
   bool CreateSceneTable();
 

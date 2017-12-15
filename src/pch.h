@@ -1,6 +1,8 @@
 #ifndef PCH_H
 #define PCH_H
 
+#include <string>
+
 #include <qapplication.h>
 #include <qfile.h>
 #include <qfiledialog.h>
@@ -69,5 +71,13 @@ static void PrintMsg(const QString &content) {
   msg_box.setText(content);
   msg_box.exec();
 }
+
+  // static void PrintMsg(const std::string &content) {
+  //  PrintMsg(QString::fromStdString(content));
+  //}
+
+  // static void PrintMsg(const char *content) {
+  //  PrintMsg(QString::fromAscii_helper(content));
+  //}
 
 #endif  // PCH_H

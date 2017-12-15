@@ -24,6 +24,8 @@ XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QStrin
   if (!ConnectDB()) {
     PrintMsg("ERROR: CREATE SQLITE DB FAILED.");
   }
+
+  CreatePlotTable();
 }
 
 XlsxSQL::~XlsxSQL() {
@@ -35,11 +37,6 @@ XlsxSQL::~XlsxSQL() {
 
   if (nullptr != scene_doc_)
     delete (scene_doc_);
-
-  if (nullptr != db_) {
-    db_.close();
-    delete db_;
-  }
 }
 
 bool XlsxSQL::ConnectDB() {
@@ -54,7 +51,43 @@ bool XlsxSQL::ConnectDB() {
 }
 
 bool XlsxSQL::CreatePlotTable() {
-  return false;
+  QStringList sheet_names = plot_doc_->sheetNames();
+
+  for (int i = 0; i < sheet_names.size(); i++) {
+    QString current_sheet_name = sheet_names[i];
+
+    // split sheet name
+    QStringList split_names = current_sheet_name.split("|");
+    if (split_names.size() != 2) {
+      continue;
+    } else {
+      QString sheet_table_name = split_names[1] + "_plot";
+      CreateSubPlotTable(current_sheet_name, sheet_table_name);
+    }
+  }
+
+  return true;
+}
+
+bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QString &table_name) {
+  plot_doc_->selectSheet(current_sheet_name);
+
+  if (!db_.tables().contains(table_name)) {
+    QSqlQuery query;
+    QString sql_statement = "CREATE TABLE " + table_name +
+                            "("
+                            "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                            "sn INTEGER,"
+                            "scene INTEGER,"
+                            "name BLOB)";
+
+    if (!query.exec(sql_statement)) {
+      PrintMsg("Create table " + table_name + " failed.");
+      return false;
+    }
+  }
+
+  return true;
 }
 
 bool XlsxSQL::CreateNpcTable() {

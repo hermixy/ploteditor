@@ -8,10 +8,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
   settings_data_ = new SettingsData();
 
-  xlsx_sql_ = new XlsxSQL(settings_data_->GetPlotXlsxPath(), settings_data_->GetNpcXlsxPath(),
-                          settings_data_->GetScenePlotXlsxPath());
-
-  CheckAllConfigFiles();
+  if (CheckAllConfigFiles()) {
+    xlsx_sql_ = new XlsxSQL(settings_data_->GetPlotXlsxPath(), settings_data_->GetNpcXlsxPath(),
+                            settings_data_->GetScenePlotXlsxPath());
+  } else {
+    xlsx_sql_ = nullptr;
+  }
 
   BindMenuActions();
 
@@ -22,7 +24,9 @@ MainWindow::~MainWindow() {
   delete ui;
 
   delete settings_data_;
-  //  delete xlsx_sql_;
+
+  if (xlsx_sql_ != nullptr)
+    delete xlsx_sql_;
 }
 
 bool MainWindow::CheckAllConfigFiles() {
