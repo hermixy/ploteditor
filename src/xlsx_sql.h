@@ -38,6 +38,9 @@ class XlsxSQL {
   //
   QString GetCell(QXlsx::Worksheet *, unsigned, unsigned);
 
+  bool TryGetString(QXlsx::Worksheet *, unsigned, unsigned, QString &);
+  bool TryGetUInt(QXlsx::Worksheet *, unsigned, unsigned, unsigned &);
+
  private:
   QString filename_;
 
