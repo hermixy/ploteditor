@@ -27,6 +27,7 @@ XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QStrin
 
   CreatePlotTable();
   CreateNpcTable();
+  CreateSceneTable();
 }
 
 XlsxSQL::~XlsxSQL() {
@@ -135,9 +136,6 @@ bool XlsxSQL::CreateNpcTable() {
     QString sql_stament = "INSERT OR REPLACE INTO " + GlobalStrs::NpcTableName + " VALUES " +
                           "(\"" + sn + "\",\"" + name + "\",\"" + scene + "\");";
 
-    if (i == 5)
-      PrintMsg(sn + "\n" + name + "\n" + scene + "\n" + sql_stament);
-
     query.exec(sql_stament);
   }
 
@@ -145,7 +143,38 @@ bool XlsxSQL::CreateNpcTable() {
 }
 
 bool XlsxSQL::CreateSceneTable() {
-  return false;
+  scene_doc_->selectSheet(GlobalStrs::SceneSheetName);
+  if (!db_.tables().contains(GlobalStrs::SceneTableName)) {
+    QSqlQuery query;
+    QString sql_statement = "CREATE TABLE IF NOT EXISTS " + GlobalStrs::SceneTableName +
+                            "("
+                            "sn INTEGER PRIMARY KEY,"
+                            "name TEXT)";
+
+    if (!query.exec(sql_statement)) {
+      PrintMsg("Create table " + GlobalStrs::SceneTableName + " failed");
+      return false;
+    }
+  }
+
+  QXlsx::Worksheet *sheet = scene_doc_->currentWorksheet();
+  QXlsx::CellRange cell_range = scene_doc_->currentWorksheet()->dimension();
+
+  QSqlQuery query;
+
+  int row = cell_range.lastRow();
+
+  for (int i = 5; i <= row; i++) {
+    QString sn = GetCell(sheet, i, 1);
+    QString name = GetCell(sheet, i, 2);
+
+    QString sql_stament = "INSERT OR REPLACE INTO " + GlobalStrs::SceneTableName + " VALUES " +
+                          "(\"" + sn + "\",\"" + name + "\");";
+
+    query.exec(sql_stament);
+  }
+
+  return true;
 }
 
 bool XlsxSQL::CreateSceneNpcTable() {
@@ -157,29 +186,4 @@ QString XlsxSQL::GetCell(QXlsx::Worksheet *sheet, unsigned row, unsigned col) {
 
   QXlsx::Cell *cell = sheet->cellAt(row, col);
   return cell->value().toString();
-}
-
-bool XlsxSQL::TryGetString(QXlsx::Worksheet *sheet, unsigned row, unsigned col, QString &ret) {
-  QXlsx::Cell *cell = sheet->cellAt(row, col);
-
-  QXlsx::Cell::CellType cellType = cell->cellType();
-  if (cellType == QXlsx::Cell::SharedStringType || cellType == QXlsx::Cell::StringType ||
-      QXlsx::Cell::InlineStringType) {
-    ret = cell->value().toString();
-    return true;
-  }
-
-  return false;
-}
-
-bool XlsxSQL::TryGetUInt(QXlsx::Worksheet *sheet, unsigned row, unsigned col, unsigned &ret) {
-  QXlsx::Cell *cell = sheet->cellAt(row, col);
-
-  QXlsx::Cell::CellType cellType = cell->cellType();
-  if (cellType == QXlsx::Cell::NumberType) {
-    ret = cell->value().toUInt();
-    return true;
-  }
-
-  return false;
 }

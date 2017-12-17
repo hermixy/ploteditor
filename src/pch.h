@@ -77,12 +77,4 @@ static void PrintMsg(const QString &content) {
   msg_box.exec();
 }
 
-// static void PrintMsg(const std::string &content) {
-//  PrintMsg(QString::fromStdString(content));
-//}
-
-// static void PrintMsg(const char *content) {
-//  PrintMsg(QString::fromAscii_helper(content));
-//}
-
 #endif  // PCH_H
