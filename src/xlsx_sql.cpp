@@ -26,6 +26,7 @@ XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QStrin
   }
 
   CreatePlotTable();
+  CreateNpcTable();
 }
 
 XlsxSQL::~XlsxSQL() {
@@ -76,13 +77,13 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
     QSqlQuery query;
     QString sql_statement = "CREATE TABLE IF NOT EXISTS " + table_name +
                             "("
-                            "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"  // key
-                            "sn INTEGER UNIQUE NOT NULL,"                     // plotSn
-                            "next INTEGER,"                                   // order
-                            "npcId INTEGER,"                                  // npcSn
-                            "content BLOB,"                                   // content
-                            "voiceChat TEXT,"  // voiceChat mp3 filename
-                            "remark BLOB)";    // editor remark
+                            "id INTEGER PRIMARY KEY AUTOINCREMENT,"  // key
+                            "sn INTEGER UNIQUE NOT NULL,"            // plotSn
+                            "next INTEGER,"                          // order
+                            "npcId INTEGER,"                         // npcSn
+                            "content BLOB,"                          // content
+                            "voiceChat TEXT,"                        // voiceChat mp3 filename
+                            "remark BLOB)";                          // editor remark
 
     if (!query.exec(sql_statement)) {
       PrintMsg("Create table " + table_name + " failed.");
@@ -90,22 +91,57 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
     }
   }
 
-  auto cell_range = plot_doc_->currentWorksheet()->dimension();
-
-  // select current sheet
-  if (plot_doc_->selectSheet(current_sheet_name)) {
-    PrintMsg(QString::number(cell_range.lastColumn()) + ", " +  // lie
-             QString::number(cell_range.lastRow()));            // hang
-  }
+  QXlsx::CellRange cell_range = plot_doc_->currentWorksheet()->dimension();
 
   int col = cell_range.lastColumn();
   int row = cell_range.lastRow();
+
+  for (int i = 1; i <= col; i++) {
+    for (int j = 1; j <= row; j++) {
+    }
+  }
 
   return true;
 }
 
 bool XlsxSQL::CreateNpcTable() {
-  return false;
+  npc_doc_->selectSheet(GlobalStrs::NpcSheetName);
+  if (!db_.tables().contains(GlobalStrs::NpcTableName)) {
+    QSqlQuery query;
+    QString sql_statement = "CREATE TABLE IF NOT EXISTS " + GlobalStrs::NpcTableName +
+                            "("
+                            "sn INTEGER PRIMARY KEY,"
+                            "name TEXT,"
+                            "scene INTEGER)";
+
+    if (!query.exec(sql_statement)) {
+      PrintMsg("Create table " + GlobalStrs::NpcTableName + " failed");
+      return false;
+    }
+  }
+
+  QXlsx::Worksheet *sheet = npc_doc_->currentWorksheet();
+  QXlsx::CellRange cell_range = npc_doc_->currentWorksheet()->dimension();
+
+  QSqlQuery query;
+
+  int row = cell_range.lastRow();
+
+  for (int i = 5; i <= row; i++) {
+    QString sn = GetCell(sheet, i, 1);
+    QString name = GetCell(sheet, i, 2);
+    QString scene = GetCell(sheet, i, 5);
+
+    QString sql_stament = "INSERT OR REPLACE INTO " + GlobalStrs::NpcTableName + " VALUES " +
+                          "(\"" + sn + "\",\"" + name + "\",\"" + scene + "\");";
+
+    if (i == 5)
+      PrintMsg(sn + "\n" + name + "\n" + scene + "\n" + sql_stament);
+
+    query.exec(sql_stament);
+  }
+
+  return true;
 }
 
 bool XlsxSQL::CreateSceneTable() {
@@ -120,28 +156,7 @@ QString XlsxSQL::GetCell(QXlsx::Worksheet *sheet, unsigned row, unsigned col) {
   QString msg = "";
 
   QXlsx::Cell *cell = sheet->cellAt(row, col);
-  switch (cell->cellType()) {
-    case QXlsx::Cell::BooleanType: {
-      msg = "Boolean " + cell->value().toString();
-      break;
-    }
-    case QXlsx::Cell::NumberType: {
-      msg = "Number " + cell->value().toString();
-      break;
-    }
-    case QXlsx::Cell::ErrorType: {
-      msg = "Error " + cell->value().toString();
-      break;
-    }
-    case QXlsx::Cell::SharedStringType:
-    case QXlsx::Cell::StringType:
-    case QXlsx::Cell::InlineStringType: {
-      msg = "String " + cell->value().toString();
-      break;
-    }
-  }
-
-  return msg;
+  return cell->value().toString();
 }
 
 bool XlsxSQL::TryGetString(QXlsx::Worksheet *sheet, unsigned row, unsigned col, QString &ret) {

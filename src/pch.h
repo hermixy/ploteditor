@@ -50,6 +50,11 @@ static const QString WARNING_NO_NPC_FILE = QString("没有选定Npc配置文件\
 static const QString WARNING_NO_SCENE_FILE = QString("没有选定Scene配置文件\n");
 static const QString WARNING_NO_PLOT_FILE = QString("没有选定Plot配置文件\n");
 
+static const QString NpcSheetName = QString("Npc|Npc");
+static const QString NpcTableName = QString("Npc");
+static const QString SceneSheetName = QString("场景副本|Scene");
+static const QString SceneTableName = QString("Scene");
+
 }  // namespace GlobalStrs
 
 static QString GetINIFilePath() {
@@ -72,12 +77,12 @@ static void PrintMsg(const QString &content) {
   msg_box.exec();
 }
 
-  // static void PrintMsg(const std::string &content) {
-  //  PrintMsg(QString::fromStdString(content));
-  //}
+// static void PrintMsg(const std::string &content) {
+//  PrintMsg(QString::fromStdString(content));
+//}
 
-  // static void PrintMsg(const char *content) {
-  //  PrintMsg(QString::fromAscii_helper(content));
-  //}
+// static void PrintMsg(const char *content) {
+//  PrintMsg(QString::fromAscii_helper(content));
+//}
 
 #endif  // PCH_H
