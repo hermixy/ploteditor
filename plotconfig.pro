@@ -34,3 +34,6 @@ HEADERS += \
 FORMS += \
     src/mainwindow.ui \
     src/settings.ui
+
+DISTFILES += \
+    doc.txt
