@@ -23,7 +23,12 @@ class XlsxSQL {
   bool CreateNpcTable();
   bool CreateSceneTable();
 
+  /*
+   * Create table for combining scene and npc
+   * */
   bool CreateSceneNpcTable();
+
+  bool CreateMissionTable();
 
  public:
   void ReloadPlotXlsx();

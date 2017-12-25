@@ -33,6 +33,7 @@ static const QString CONFIG_FILE_NAME = QString("config.json");
 static const QString NPC_XLSX_FILE_KEY = QString("NpcXlsxPath");
 static const QString PLOT_XLSX_FILE_KEY = QString("PlotXlsxPath");
 static const QString SCENE_XLSX_FILE_KEY = QString("SceneXlsxPath");
+static const QString MISSION_XLSX_FILE_KEY = QString("MissionXlsxPath");
 
 static const QString COLOR1_KEY = QString("Color1");  // #ff0000
 static const QString COLOR2_KEY = QString("Color2");  // #00ff00
@@ -49,6 +50,7 @@ static const QString COLOR5 = QString("#4F5F6F");  // #4f5f6f
 static const QString WARNING_NO_NPC_FILE = QString("没有选定Npc配置文件\n");
 static const QString WARNING_NO_SCENE_FILE = QString("没有选定Scene配置文件\n");
 static const QString WARNING_NO_PLOT_FILE = QString("没有选定Plot配置文件\n");
+static const QString WARNING_NO_MISSION_FILE = QString("没有选定Mission配置文件\n");
 
 static const QString NpcSheetName = QString("Npc|Npc");
 static const QString NpcTableName = QString("Npc");

@@ -47,6 +47,11 @@ bool MainWindow::CheckAllConfigFiles() {
     warning += GlobalStrs::WARNING_NO_PLOT_FILE;
   }
 
+  QString mission_path = settings_data_->GetMissionXlsxPath();
+  if (0 == mission_path.length()) {
+    warning + GlobalStrs::WARNING_NO_MISSION_FILE;
+  }
+
   if (0 != warning.length()) {
     ui->warningGroup->setVisible(true);
     ui->labelWarning->setText(warning);

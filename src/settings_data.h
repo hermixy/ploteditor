@@ -12,6 +12,7 @@ class SettingsData {
   void SetNpcXlsxPath(const QString &);
   void SetPlotXlsxPath(const QString &);
   void SetSceneXlsxPath(const QString &);
+  void SetMissionXlsxPath(const QString &);
 
   void SetColor1(const QString &);
   void SetColor2(const QString &);
@@ -22,6 +23,7 @@ class SettingsData {
   QString GetNpcXlsxPath();
   QString GetPlotXlsxPath();
   QString GetScenePlotXlsxPath();
+  QString GetMissionXlsxPath();
 
   QString GetColor1();
   QString GetColor2();

@@ -181,6 +181,10 @@ bool XlsxSQL::CreateSceneNpcTable() {
   return false;
 }
 
+bool XlsxSQL::CreateMissionTable() {
+  return false;
+}
+
 QString XlsxSQL::GetCell(QXlsx::Worksheet *sheet, unsigned row, unsigned col) {
   QString msg = "";
 

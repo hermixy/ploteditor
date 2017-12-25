@@ -19,6 +19,7 @@ class Settings : public QWidget {
   QString GetNpcFilePath();
   QString GetSceneFilePath();
   QString GetPlotFilePath();
+  QString GetMissionFilePath();
 
  private:
   // bind the buttons' actions
@@ -40,9 +41,13 @@ class Settings : public QWidget {
   // ui panel browser the scene file path.
   void FindSceneFilePath();
 
+  // ui panel browser the mission file path.
+  void FindMissionFilePath();
+
   void OnNpcFilePathChanged(const QString &);
   void OnPlotFilePathChanged(const QString &);
   void OnSceneFilePathChanged(const QString &);
+  void OnMissionFilePathChanged(const QString &);
 
   void OnColor1Changed(const QString &);
   void OnColor2Changed(const QString &);
@@ -54,6 +59,7 @@ class Settings : public QWidget {
   QString npc_file_path_;
   QString plot_file_path_;
   QString scene_file_path_;
+  QString mission_file_path_;
 
   QString color1_name_;
   QString color2_name_;

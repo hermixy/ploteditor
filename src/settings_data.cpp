@@ -23,6 +23,10 @@ void SettingsData::SetSceneXlsxPath(const QString& path) {
   qsettings_->setValue(GlobalStrs::SCENE_XLSX_FILE_KEY, path);
 }
 
+void SettingsData::SetMissionXlsxPath(const QString& path) {
+  qsettings_->setValue(GlobalStrs::MISSION_XLSX_FILE_KEY, path);
+}
+
 void SettingsData::SetColor1(const QString& color) {
   if (color_hex_checker_->match(color).hasMatch()) {
     qsettings_->setValue(GlobalStrs::COLOR1_KEY, color);
@@ -63,6 +67,10 @@ QString SettingsData::GetPlotXlsxPath() {
 
 QString SettingsData::GetScenePlotXlsxPath() {
   return qsettings_->value(GlobalStrs::SCENE_XLSX_FILE_KEY, "").toString();
+}
+
+QString SettingsData::GetMissionXlsxPath() {
+  return qsettings_->value(GlobalStrs::MISSION_XLSX_FILE_KEY, "").toString();
 }
 
 QString SettingsData::GetColor1() {
