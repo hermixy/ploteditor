@@ -12,6 +12,9 @@ class XlsxSQL {
  public:
   bool ConnectDB();
 
+  QSqlDatabase &GetDataBase();
+
+ public:
   bool CreatePlotTable();
 
   /*

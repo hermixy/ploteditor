@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   BindMenuActions();
 
   FillNpcTab();
+  FillPlotTab();
 }
 
 MainWindow::~MainWindow() {
@@ -64,6 +65,28 @@ bool MainWindow::CheckAllConfigFiles() {
 }
 
 void MainWindow::ReloadSettings() {}
+
+void MainWindow::FillPlotTab() {
+  QSqlQuery query(xlsx_sql_->GetDataBase());
+
+  query.prepare("SELECT * FROM 'Plot'");
+  if (!query.exec()) {
+    PrintMsg(query.lastError().text());
+  }
+
+  query.first();
+  while (query.next()) {
+    QTreeWidgetItem *item = new QTreeWidgetItem();
+
+    item->setText(0, query.value(0).toString());
+    item->setText(1, query.value(1).toString());
+    item->setText(2, query.value(2).toString());
+    item->setText(3, query.value(3).toString());
+    item->setText(4, query.value(4).toString());
+
+    ui->treePlot->insertTopLevelItem(ui->treePlot->topLevelItemCount(), item);
+  }
+}
 
 void MainWindow::FillNpcTab() {
   for (int i = 1; i < 10; i++) {

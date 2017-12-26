@@ -20,6 +20,7 @@
 
 #include <QtSql/qsql.h>
 #include <QtSql/qsqldatabase.h>
+#include <QtSql/qsqlerror.h>
 #include <QtSql/qsqlquery.h>
 
 #include <xlsxdocument.h>

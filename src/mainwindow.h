@@ -24,6 +24,7 @@ class MainWindow : public QMainWindow {
   bool CheckAllConfigFiles();
   void ReloadSettings();
 
+  void FillPlotTab();
   void FillNpcTab();
 
   void CreateActions();
