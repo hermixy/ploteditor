@@ -1,5 +1,7 @@
 #include "xlsx_sql.h"
 
+#include "progressbar.h"
+
 /*
  * @param plot path
  * @param npc path
@@ -86,10 +88,15 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
   QXlsx::Worksheet *sheet = plot_doc_->currentWorksheet();
   QXlsx::CellRange cell_range = plot_doc_->currentWorksheet()->dimension();
 
-  int col = cell_range.lastColumn();
   int row = cell_range.lastRow();
 
   QSqlQuery query;
+
+  // init ui progressbar
+  QString title = GlobalStrs::CheckProgressHead + current_sheet_name;
+  QString progname = table_name;
+  ProgressBar *pb = CreateNewProgressBar(title, progname, 0, row, 5);
+  pb->show();
 
   for (int i = 5; i <= row; i++) {
     QString sn = GetCell(sheet, i, 1);
@@ -106,8 +113,18 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
 
     if (!query.exec(sql_statement)) {
       PrintMsg("INSERT FALIED");
+
+      pb->close();
+      delete pb;
+
+      return false;
     }
+
+    pb->SetValue(i);
   }
+
+  pb->close();
+  delete pb;
 
   return true;
 }
@@ -135,16 +152,34 @@ bool XlsxSQL::CreateNpcTable() {
 
   int row = cell_range.lastRow();
 
+  // init ui progressbar
+  QString title = GlobalStrs::CheckProgressHead + GlobalStrs::NpcSheetName;
+  QString progname = GlobalStrs::NpcTableName;
+  ProgressBar *pb = CreateNewProgressBar(title, progname, 0, row, 5);
+  pb->show();
+
   for (int i = 5; i <= row; i++) {
     QString sn = GetCell(sheet, i, 1);
     QString name = GetCell(sheet, i, 2);
     QString scene = GetCell(sheet, i, 5);
 
-    QString sql_stament = "INSERT OR REPLACE INTO " + GlobalStrs::NpcTableName + " VALUES " +
-                          "(\"" + sn + "\",\"" + name + "\",\"" + scene + "\");";
+    QString sql_statement = "INSERT OR REPLACE INTO " + GlobalStrs::NpcTableName + " VALUES " +
+                            "(\"" + sn + "\",\"" + name + "\",\"" + scene + "\");";
 
-    query.exec(sql_stament);
+    if (!query.exec(sql_statement)) {
+      PrintMsg("INSERT FALIED");
+
+      pb->close();
+      delete pb;
+
+      return false;
+    }
+
+    pb->SetValue(i);
   }
+
+  pb->close();
+  delete pb;
 
   return true;
 }
@@ -171,15 +206,33 @@ bool XlsxSQL::CreateSceneTable() {
 
   int row = cell_range.lastRow();
 
+  // init ui progressbar
+  QString title = GlobalStrs::CheckProgressHead + GlobalStrs::SceneSheetName;
+  QString progname = GlobalStrs::SceneTableName;
+  ProgressBar *pb = CreateNewProgressBar(title, progname, 0, row, 5);
+  pb->show();
+
   for (int i = 5; i <= row; i++) {
     QString sn = GetCell(sheet, i, 1);
     QString name = GetCell(sheet, i, 2);
 
-    QString sql_stament = "INSERT OR REPLACE INTO " + GlobalStrs::SceneTableName + " VALUES " +
-                          "(\"" + sn + "\",\"" + name + "\");";
+    QString sql_statement = "INSERT OR REPLACE INTO " + GlobalStrs::SceneTableName + " VALUES " +
+                            "(\"" + sn + "\",\"" + name + "\");";
 
-    query.exec(sql_stament);
+    if (!query.exec(sql_statement)) {
+      PrintMsg("INSERT FALIED");
+
+      pb->close();
+      delete pb;
+
+      return false;
+    }
+
+    pb->SetValue(i);
   }
+
+  pb->close();
+  delete pb;
 
   return true;
 }

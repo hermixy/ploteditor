@@ -12,6 +12,7 @@
 #include <qlineedit.h>
 #include <qmainwindow.h>
 #include <qmessagebox.h>
+#include <qprogressdialog.h>
 #include <qpushbutton.h>
 #include <qregularexpression.h>
 #include <qsettings.h>
@@ -22,6 +23,8 @@
 #include <QtSql/qsqldatabase.h>
 #include <QtSql/qsqlerror.h>
 #include <QtSql/qsqlquery.h>
+
+#include "progressbar.h"
 
 #include <xlsxdocument.h>
 
@@ -58,6 +61,8 @@ static const QString NpcTableName = QString("Npc");
 static const QString SceneSheetName = QString("场景副本|Scene");
 static const QString SceneTableName = QString("Scene");
 
+static const QString CheckProgressHead = QString("检查数据表: ");
+
 }  // namespace GlobalStrs
 
 static QString GetINIFilePath() {
@@ -79,5 +84,14 @@ static void PrintMsg(const QString &content) {
   msg_box.setText(content);
   msg_box.exec();
 }
+
+/*
+ * @param title Window title
+ * @param progname Label
+ * @param min value
+ * @param max value
+ * @param initial value
+ * */
+ProgressBar *CreateNewProgressBar(const QString &, const QString &, int, int, int);
 
 #endif  // PCH_H

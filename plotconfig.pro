@@ -22,18 +22,24 @@ SOURCES += \
     src/mainwindow.cpp \
     src/settings.cpp \
     src/xlsx_sql.cpp \
-    src/settings_data.cpp
+    src/settings_data.cpp \
+    src/utils.cpp \
+    src/progressbar.cpp \
+    src/pch.cpp
 
 HEADERS += \
     src/mainwindow.h \
     src/settings.h \
     src/pch.h \
     src/xlsx_sql.h \
-    src/settings_data.h
+    src/settings_data.h \
+    src/utils.h \
+    src/progressbar.h
 
 FORMS += \
     src/mainwindow.ui \
-    src/settings.ui
+    src/settings.ui \
+    src/progressbar.ui
 
 DISTFILES += \
-    doc.txt
+    doc.md
