@@ -42,4 +42,4 @@ FORMS += \
     src/progressbar.ui
 
 DISTFILES += \
-    doc.md
+    notes.md
