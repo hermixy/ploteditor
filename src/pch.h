@@ -60,30 +60,27 @@ static const QString NpcSheetName = QString("Npc|Npc");
 static const QString NpcTableName = QString("Npc");
 static const QString SceneSheetName = QString("场景副本|Scene");
 static const QString SceneTableName = QString("Scene");
+static const QString MissionSheetName = QString("任务配置|Quest");
+static const QString MissionTableName = QString("Mission");
 
-static const QString CheckProgressHead = QString("检查数据表: ");
+static const QString InsertFailed = QString("Insert failed: ");
+static const QString CheckProgressHead = QString("Check Execel: ");
 
 }  // namespace GlobalStrs
 
-static QString GetINIFilePath() {
-  return QApplication::applicationDirPath() + "/config.ini";
-}
+QString GetINIFilePath();
+QString GetDBFilePath();
 
-static QString GetDBFilePath() {
-  return QApplication::applicationDirPath() + "/xlsx.db";
-}
+/*
+ * @param file path
+ * @return boolean
+ * */
+bool IsFileExists(const QString &path);
 
-static bool IsFileExists(const QString &path) {
-  QFileInfo check_file(path);
-  // check if file exists and if yes: Is it really a file and no directory?
-  return check_file.exists() && check_file.isFile();
-}
-
-static void PrintMsg(const QString &content) {
-  QMessageBox msg_box;
-  msg_box.setText(content);
-  msg_box.exec();
-}
+/*
+ * @param content
+ * */
+void PrintMsg(const QString &content);
 
 /*
  * @param title Window title
@@ -93,5 +90,12 @@ static void PrintMsg(const QString &content) {
  * @param initial value
  * */
 ProgressBar *CreateNewProgressBar(const QString &, const QString &, int, int, int);
+
+/*
+ * @param QSqlQuery
+ * @param Sql statement
+ * @param Error tips
+ * */
+bool ExecuteSQLQuery(QSqlQuery &, const QString &, const QString &);
 
 #endif  // PCH_H

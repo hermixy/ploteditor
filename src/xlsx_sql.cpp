@@ -72,15 +72,16 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
   if (!db_.tables().contains(table_name)) {
     QSqlQuery query;
     QString sql_statement = "CREATE TABLE IF NOT EXISTS " + table_name +
-                            "("
-                            "sn INTEGER PRIMARY KEY NOT NULL,"  // plotSn
-                            "next INTEGER,"                     // order
-                            "npcId INTEGER,"                    // npcSn
-                            "content BLOB,"                     // content
-                            "voiceChat TEXT)";                  // voiceChat mp3 filename
+                            "(sn TEXT PRIMARY KEY NOT NULL,"  // plotSn
+                            "next TEXT,"                      // order
+                            "npcId INTEGER,"                  // npcSn
+                            "content BLOB,"                   // content
+                            "voiceChat TEXT,"                 // voiceChat mp3 filename
+                            "row INTEGER)";                   // row number
 
-    if (!query.exec(sql_statement)) {
-      PrintMsg("Create table " + table_name + " failed.");
+    QString error_tips = "Create table " + table_name + " failed.";
+
+    if (!ExecuteSQLQuery(query, sql_statement, error_tips)) {
       return false;
     }
   }
@@ -90,29 +91,27 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
 
   int row = cell_range.lastRow();
 
-  QSqlQuery query;
-
   // init ui progressbar
   QString title = GlobalStrs::CheckProgressHead + current_sheet_name;
   QString progname = table_name;
   ProgressBar *pb = CreateNewProgressBar(title, progname, 0, row, 5);
   pb->show();
 
+  QSqlQuery query;
+  QString error_tips;
   for (int i = 5; i <= row; i++) {
-    QString sn = GetCell(sheet, i, 1);
-    QString next = GetCell(sheet, i, 2);
-    QString npcId = GetCell(sheet, i, 3);
-    QString content = GetCell(sheet, i, 4);
-    QString voice = GetCell(sheet, i, 5);
+    QString sql_statement = "INSERT OR REPLACE INTO " + table_name + " VALUES (?, ?, ?, ?, ?, ?)";
+    query.prepare(sql_statement);
+    query.addBindValue(GetCell(sheet, i, 1));
+    query.addBindValue(GetCell(sheet, i, 2));
+    query.addBindValue(GetCell(sheet, i, 3));
+    query.addBindValue(GetCell(sheet, i, 4));
+    query.addBindValue(GetCell(sheet, i, 5));
+    query.addBindValue(QString::number(i));
 
-    //    PrintMsg(sn + " " + next + " " + npcId + " " + content + " " + voice);
-
-    QString sql_statement = "INSERT OR REPLACE INTO " + table_name + " VALUES " + "(\"" + sn +
-                            "\",\"" + next + "\",\"" + npcId + "\",\"" + content + "\",\"" + voice +
-                            "\");";
-
-    if (!query.exec(sql_statement)) {
-      PrintMsg("INSERT FALIED");
+    error_tips = GlobalStrs::InsertFailed + sql_statement;
+    if (!query.exec()) {
+      PrintMsg(error_tips);
 
       pb->close();
       delete pb;
@@ -129,15 +128,39 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
   return true;
 }
 
+bool XlsxSQL::AnalysePlots(const QString &table_name) {
+  if (!db_.tables().contains(table_name)) {
+    PrintMsg("Table " + table_name + " not exists.");
+    return false;
+  }
+
+  QString plotchain_table_name = table_name + "Chain";
+  if (!db_.tables().contains(plotchain_table_name)) {
+    QSqlQuery query;
+    QString sql_statement = "CREATE TABLE IF NOT EXISTS " + plotchain_table_name +
+                            "(sn TEXT PRIMARY KEY," + "chain TEXT)";
+
+    QString error_tips = "Create table " + plotchain_table_name + " failed.";
+
+    if (!ExecuteSQLQuery(query, sql_statement, error_tips)) {
+      return false;
+    }
+  }
+
+  // analysing plot database
+  //  std::map<QString> not_head_map;
+  // TODO: analysing plot datbase.
+}
+
 bool XlsxSQL::CreateNpcTable() {
   npc_doc_->selectSheet(GlobalStrs::NpcSheetName);
   if (!db_.tables().contains(GlobalStrs::NpcTableName)) {
     QSqlQuery query;
     QString sql_statement = "CREATE TABLE IF NOT EXISTS " + GlobalStrs::NpcTableName +
-                            "("
-                            "sn INTEGER PRIMARY KEY,"
+                            "(sn INTEGER PRIMARY KEY,"
                             "name TEXT,"
-                            "scene INTEGER)";
+                            "scene INTEGER,"
+                            "row INTERGER)";
 
     if (!query.exec(sql_statement)) {
       PrintMsg("Create table " + GlobalStrs::NpcTableName + " failed");
@@ -159,15 +182,17 @@ bool XlsxSQL::CreateNpcTable() {
   pb->show();
 
   for (int i = 5; i <= row; i++) {
-    QString sn = GetCell(sheet, i, 1);
-    QString name = GetCell(sheet, i, 2);
-    QString scene = GetCell(sheet, i, 5);
+    QString sql_statement =
+        "INSERT OR REPLACE INTO " + GlobalStrs::NpcTableName + " VALUES (?, ?, ?, ?)";
+    query.prepare(sql_statement);
+    query.addBindValue(GetCell(sheet, i, 1));
+    query.addBindValue(GetCell(sheet, i, 2));
+    query.addBindValue(GetCell(sheet, i, 5));
+    query.addBindValue(QString::number(i));
 
-    QString sql_statement = "INSERT OR REPLACE INTO " + GlobalStrs::NpcTableName + " VALUES " +
-                            "(\"" + sn + "\",\"" + name + "\",\"" + scene + "\");";
-
-    if (!query.exec(sql_statement)) {
-      PrintMsg("INSERT FALIED");
+    if (!query.exec()) {
+      QString error = GlobalStrs::InsertFailed + sql_statement;
+      PrintMsg(error);
 
       pb->close();
       delete pb;
@@ -189,8 +214,7 @@ bool XlsxSQL::CreateSceneTable() {
   if (!db_.tables().contains(GlobalStrs::SceneTableName)) {
     QSqlQuery query;
     QString sql_statement = "CREATE TABLE IF NOT EXISTS " + GlobalStrs::SceneTableName +
-                            "("
-                            "sn INTEGER PRIMARY KEY,"
+                            "(sn INTEGER PRIMARY KEY,"
                             "name TEXT)";
 
     if (!query.exec(sql_statement)) {
@@ -213,14 +237,15 @@ bool XlsxSQL::CreateSceneTable() {
   pb->show();
 
   for (int i = 5; i <= row; i++) {
-    QString sn = GetCell(sheet, i, 1);
-    QString name = GetCell(sheet, i, 2);
+    QString sql_statement =
+        "INSERT OR REPLACE INTO " + GlobalStrs::SceneTableName + " VALUES(?, ?)";
 
-    QString sql_statement = "INSERT OR REPLACE INTO " + GlobalStrs::SceneTableName + " VALUES " +
-                            "(\"" + sn + "\",\"" + name + "\");";
+    query.prepare(sql_statement);
+    query.addBindValue(GetCell(sheet, i, 1));
+    query.addBindValue(GetCell(sheet, i, 2));
 
-    if (!query.exec(sql_statement)) {
-      PrintMsg("INSERT FALIED");
+    if (!query.exec()) {
+      PrintMsg(GlobalStrs::InsertFailed + sql_statement);
 
       pb->close();
       delete pb;

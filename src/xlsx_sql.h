@@ -23,6 +23,12 @@ class XlsxSQL {
    * */
   bool CreateSubPlotTable(const QString &, const QString &);
 
+  /*
+   * @param plot table name
+   * @descriptin Analysint the plot data, store the plot chain
+   * */
+  bool AnalysePlots(const QString &);
+
   bool CreateNpcTable();
   bool CreateSceneTable();
 
