@@ -102,11 +102,11 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
   for (int i = 5; i <= row; i++) {
     QString sql_statement = "INSERT OR REPLACE INTO " + table_name + " VALUES (?, ?, ?, ?, ?, ?)";
     query.prepare(sql_statement);
-    query.addBindValue(GetCell(sheet, i, 1));
-    query.addBindValue(GetCell(sheet, i, 2));
-    query.addBindValue(GetCell(sheet, i, 3));
-    query.addBindValue(GetCell(sheet, i, 4));
-    query.addBindValue(GetCell(sheet, i, 5));
+    query.addBindValue(GetCell(sheet, i, 1));  // sn
+    query.addBindValue(GetCell(sheet, i, 2));  // order(next)
+    query.addBindValue(GetCell(sheet, i, 3));  // npc sn
+    query.addBindValue(GetCell(sheet, i, 4));  // content
+    query.addBindValue(GetCell(sheet, i, 5));  // voice
     query.addBindValue(QString::number(i));
 
     error_tips = GlobalStrs::InsertFailed + sql_statement;
@@ -150,6 +150,14 @@ bool XlsxSQL::AnalysePlots(const QString &table_name) {
   // analysing plot database
   //  std::map<QString> not_head_map;
   // TODO: analysing plot datbase.
+
+  QSqlQuery query;
+  QString sql_statement = "SELECT * FROM Plot";
+  query.prepare(sql_statement);
+
+  query.first();
+  while (query.next()) {
+  }
 }
 
 bool XlsxSQL::CreateNpcTable() {
