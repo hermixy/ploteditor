@@ -17,6 +17,8 @@ TEMPLATE = app
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
+INCLUDEPATH += 3rdparty/rapidjson
+
 SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
