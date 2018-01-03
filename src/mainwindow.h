@@ -5,10 +5,6 @@
 
 #include "xlsx_sql.h"
 
-// ui
-#include "progressbar.h"
-#include "settings.h"
-
 namespace Ui {
 class MainWindow;
 }

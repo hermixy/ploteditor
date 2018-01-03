@@ -4,6 +4,7 @@
 #include <string>
 
 #include <qapplication.h>
+#include <qdialog.h>
 #include <qfile.h>
 #include <qfiledialog.h>
 #include <qfileinfo.h>
@@ -24,9 +25,9 @@
 #include <QtSql/qsqlerror.h>
 #include <QtSql/qsqlquery.h>
 
-#include "progressbar.h"
-
 #include <xlsxdocument.h>
+
+#include "progressbar.h"
 
 // global variables
 

@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "ploteditdialog.h"
+#include "progressbar.h"
 #include "settings.h"
 
 #include "utils.h"
@@ -102,10 +104,14 @@ void MainWindow::FillNpcTab() {
 }
 
 void MainWindow::ShowSettingWidget() {
-  auto settings_ = new Settings(nullptr);
+  //  auto settings_ = new Settings(nullptr);
 
-  settings_->setWindowModality(Qt::WindowModal);
-  settings_->show();
+  //  settings_->setWindowModality(Qt::WindowModal);
+  //  settings_->show();
+
+  auto plotedit = new PlotEditDialog(nullptr);
+  //  plotedit->setWindowModality(Qt::WindowModal);
+  plotedit->show();
 }
 
 void MainWindow::BindMenuActions() {

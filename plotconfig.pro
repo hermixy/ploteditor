@@ -27,7 +27,8 @@ SOURCES += \
     src/settings_data.cpp \
     src/utils.cpp \
     src/progressbar.cpp \
-    src/pch.cpp
+    src/pch.cpp \
+    src/ploteditdialog.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -36,12 +37,14 @@ HEADERS += \
     src/xlsx_sql.h \
     src/settings_data.h \
     src/utils.h \
-    src/progressbar.h
+    src/progressbar.h \
+    src/ploteditdialog.h
 
 FORMS += \
     src/mainwindow.ui \
     src/settings.ui \
-    src/progressbar.ui
+    src/progressbar.ui \
+    src/ploteditdialog.ui
 
 DISTFILES += \
     notes.md

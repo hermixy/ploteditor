@@ -158,6 +158,8 @@ bool XlsxSQL::AnalysePlots(const QString &table_name) {
   query.first();
   while (query.next()) {
   }
+
+  return false;
 }
 
 bool XlsxSQL::CreateNpcTable() {
