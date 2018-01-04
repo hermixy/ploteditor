@@ -10,7 +10,9 @@
 #include <qfileinfo.h>
 #include <qjsondocument.h>
 #include <qjsonobject.h>
+#include <qlabel.h>
 #include <qlineedit.h>
+#include <qlistwidget.h>
 #include <qmainwindow.h>
 #include <qmessagebox.h>
 #include <qprogressdialog.h>
@@ -20,6 +22,11 @@
 #include <qstring.h>
 #include <qwidget.h>
 
+#include <qvector.h>
+
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+
 #include <QtSql/qsql.h>
 #include <QtSql/qsqldatabase.h>
 #include <QtSql/qsqlerror.h>
@@ -27,6 +34,7 @@
 
 #include <xlsxdocument.h>
 
+#include "plotitem.h"
 #include "progressbar.h"
 
 // global variables

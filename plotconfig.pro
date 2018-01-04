@@ -28,7 +28,9 @@ SOURCES += \
     src/utils.cpp \
     src/progressbar.cpp \
     src/pch.cpp \
-    src/ploteditdialog.cpp
+    src/ploteditdialog.cpp \
+    src/plotsegmentviewer.cpp \
+    src/plotitem.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -38,13 +40,16 @@ HEADERS += \
     src/settings_data.h \
     src/utils.h \
     src/progressbar.h \
-    src/ploteditdialog.h
+    src/ploteditdialog.h \
+    src/plotsegmentviewer.h \
+    src/plotitem.h
 
 FORMS += \
     src/mainwindow.ui \
     src/settings.ui \
     src/progressbar.ui \
-    src/ploteditdialog.ui
+    src/ploteditdialog.ui \
+    src/plotsegmentviewer.ui
 
 DISTFILES += \
     notes.md
