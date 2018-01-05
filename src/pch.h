@@ -37,6 +37,10 @@
 #include "plotitem.h"
 #include "progressbar.h"
 
+#include <rapidjson/document.h>
+#include <rapidjson/istreamwrapper.h>
+#include <fstream>
+
 // global variables
 
 // end global variables
