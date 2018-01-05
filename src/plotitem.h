@@ -14,8 +14,10 @@ class PlotItem : public QWidget {
  public slots:
 
  private:
-  QLabel *label1;
-  QLabel *label2;
+  QLabel *labelSn;
+  QLabel *labelNextSn;
+  QLabel *labelContent;
+  QLabel *labelVoice;
 
   QHBoxLayout *hbl;
 };

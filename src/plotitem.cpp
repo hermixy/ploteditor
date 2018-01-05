@@ -14,7 +14,19 @@ PlotItem::PlotItem(QWidget *parent) : QWidget(parent) {
 }
 
 PlotItem::~PlotItem() {
-  delete label1;
-  delete label2;
-  delete hbl;
+  if (nullptr != labelSn) {
+    delete labelSn;
+  }
+
+  if (nullptr != labelNextSn) {
+    delete labelNextSn;
+  }
+
+  if (nullptr != labelContent) {
+    delete labelContent;
+  }
+
+  if (nullptr != labelVoice) {
+    delete hbl;
+  }
 }
