@@ -100,23 +100,47 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
   QSqlQuery query;
   QString error_tips;
   for (int i = 5; i <= row; i++) {
-    QString sql_statement = "INSERT OR REPLACE INTO " + table_name + " VALUES (?, ?, ?, ?, ?, ?)";
-    query.prepare(sql_statement);
-    query.addBindValue(GetCell(sheet, i, 1));  // sn
-    query.addBindValue(GetCell(sheet, i, 2));  // order(next)
-    query.addBindValue(GetCell(sheet, i, 3));  // npc sn
-    query.addBindValue(GetCell(sheet, i, 4));  // content
-    query.addBindValue(GetCell(sheet, i, 5));  // voice
-    query.addBindValue(QString::number(i));
+    QString sn = GetCell(sheet, i, 1);
+    QString order = GetCell(sheet, i, 2);
+    QString npcsn = GetCell(sheet, i, 3);
+    QString content = GetCell(sheet, i, 4);
+    QString voice = GetCell(sheet, i, 5);
 
-    error_tips = GlobalStrs::InsertFailed + sql_statement;
-    if (!query.exec()) {
-      PrintMsg(error_tips);
+    bool hasChanged = false;
 
-      pb->close();
-      delete pb;
+    // check is data changed.
+    QString sql = QString("SELECT * FROM %1 WHERE sn = :sn").arg(table_name);
+    query.prepare(sql);
+    query.bindValue(":sn", sn);
+    if (query.exec()) {
+      if (query.next()) {
+        if (sn != query.value(0).toString() || order != query.value(1).toString() ||
+            npcsn != query.value(2).toString() || content != query.value(3).toString() ||
+            voice != query.value(4).toString()) {
+          hasChanged = true;
+        }
+      }
+    }
 
-      return false;
+    if (hasChanged) {
+      QString sql_statement = "INSERT OR REPLACE INTO " + table_name + " VALUES (?, ?, ?, ?, ?, ?)";
+      query.prepare(sql_statement);
+      query.addBindValue(GetCell(sheet, i, 1));  // sn
+      query.addBindValue(GetCell(sheet, i, 2));  // order(next)
+      query.addBindValue(GetCell(sheet, i, 3));  // npc sn
+      query.addBindValue(GetCell(sheet, i, 4));  // content
+      query.addBindValue(GetCell(sheet, i, 5));  // voice
+      query.addBindValue(QString::number(i));
+
+      error_tips = GlobalStrs::InsertFailed + sql_statement;
+      if (!query.exec()) {
+        PrintMsg(error_tips);
+
+        pb->close();
+        delete pb;
+
+        return false;
+      }
     }
 
     pb->SetValue(i);
@@ -192,22 +216,44 @@ bool XlsxSQL::CreateNpcTable() {
   pb->show();
 
   for (int i = 5; i <= row; i++) {
-    QString sql_statement =
-        "INSERT OR REPLACE INTO " + GlobalStrs::NpcTableName + " VALUES (?, ?, ?, ?)";
-    query.prepare(sql_statement);
-    query.addBindValue(GetCell(sheet, i, 1));
-    query.addBindValue(GetCell(sheet, i, 2));
-    query.addBindValue(GetCell(sheet, i, 5));
-    query.addBindValue(QString::number(i));
+    QString sn = GetCell(sheet, i, 1);
+    QString name = GetCell(sheet, i, 2);
+    QString scene = GetCell(sheet, i, 5);
+    QString row = QString::number(i);
 
-    if (!query.exec()) {
-      QString error = GlobalStrs::InsertFailed + sql_statement;
-      PrintMsg(error);
+    bool hasChanged = false;
 
-      pb->close();
-      delete pb;
+    // check is data changed.
+    QString sql = QString("SELECT * FROM %1 WHERE sn = :sn").arg(GlobalStrs::NpcTableName);
+    query.prepare(sql);
+    query.bindValue(":sn", sn);
+    if (query.exec()) {
+      if (query.next()) {
+        if (sn != query.value(0).toString() || name != query.value(1).toString() ||
+            scene != query.value(2).toString() || row != query.value(3).toString()) {
+          hasChanged = true;
+        }
+      }
+    }
 
-      return false;
+    if (hasChanged) {
+      QString sql_statement =
+          "INSERT OR REPLACE INTO " + GlobalStrs::NpcTableName + " VALUES (?, ?, ?, ?)";
+      query.prepare(sql_statement);
+      query.addBindValue(GetCell(sheet, i, 1));
+      query.addBindValue(GetCell(sheet, i, 2));
+      query.addBindValue(GetCell(sheet, i, 5));
+      query.addBindValue(QString::number(i));
+
+      if (!query.exec()) {
+        QString error = GlobalStrs::InsertFailed + sql_statement;
+        PrintMsg(error);
+
+        pb->close();
+        delete pb;
+
+        return false;
+      }
     }
 
     pb->SetValue(i);
@@ -247,20 +293,39 @@ bool XlsxSQL::CreateSceneTable() {
   pb->show();
 
   for (int i = 5; i <= row; i++) {
-    QString sql_statement =
-        "INSERT OR REPLACE INTO " + GlobalStrs::SceneTableName + " VALUES(?, ?)";
+    QString sn = GetCell(sheet, i, 1);
+    QString scene = GetCell(sheet, i, 2);
 
-    query.prepare(sql_statement);
-    query.addBindValue(GetCell(sheet, i, 1));
-    query.addBindValue(GetCell(sheet, i, 2));
+    bool hasChanged = false;
 
-    if (!query.exec()) {
-      PrintMsg(GlobalStrs::InsertFailed + sql_statement);
+    // check is data changed.
+    QString sql = QString("SELECT * FROM %1 WHERE sn = :sn").arg(GlobalStrs::SceneTableName);
+    query.prepare(sql);
+    query.bindValue(":sn", sn);
+    if (query.exec()) {
+      if (query.next()) {
+        if (sn != query.value(0).toString() || scene != query.value(1).toString()) {
+          hasChanged = true;
+        }
+      }
+    }
 
-      pb->close();
-      delete pb;
+    if (hasChanged) {
+      QString sql_statement =
+          "INSERT OR REPLACE INTO " + GlobalStrs::SceneTableName + " VALUES(?, ?)";
 
-      return false;
+      query.prepare(sql_statement);
+      query.addBindValue(GetCell(sheet, i, 1));
+      query.addBindValue(GetCell(sheet, i, 2));
+
+      if (!query.exec()) {
+        PrintMsg(GlobalStrs::InsertFailed + sql_statement);
+
+        pb->close();
+        delete pb;
+
+        return false;
+      }
     }
 
     pb->SetValue(i);
