@@ -17,7 +17,7 @@ TEMPLATE = app
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
-INCLUDEPATH += 3rdparty/rapidjson
+INCLUDEPATH += 3rdparty
 
 SOURCES += \
     src/main.cpp \
@@ -29,8 +29,8 @@ SOURCES += \
     src/progressbar.cpp \
     src/pch.cpp \
     src/ploteditdialog.cpp \
-    src/plotsegmentviewer.cpp \
-    src/plotitem.cpp
+    src/plotitem.cpp \
+    src/plotviewer.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -41,15 +41,18 @@ HEADERS += \
     src/utils.h \
     src/progressbar.h \
     src/ploteditdialog.h \
-    src/plotsegmentviewer.h \
-    src/plotitem.h
+    src/plotitem.h \
+    src/plotviewer.h
 
 FORMS += \
     src/mainwindow.ui \
     src/settings.ui \
     src/progressbar.ui \
     src/ploteditdialog.ui \
-    src/plotsegmentviewer.ui
+    src/plotviewer.ui
 
 DISTFILES += \
     notes.md
+
+RESOURCES += \
+    jsonfiles.qrc
