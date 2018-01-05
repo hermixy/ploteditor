@@ -22,163 +22,149 @@
    <locale language="Chinese" country="China"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>440</y>
-      <width>501</width>
-      <height>311</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTabWidget" name="tabWidget">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>0</y>
-      <width>831</width>
-      <height>481</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="tabPlot">
-     <attribute name="title">
-      <string>Tab 1</string>
-     </attribute>
-     <widget class="QTreeWidget" name="treePlot">
-      <property name="geometry">
-       <rect>
-        <x>15</x>
-        <y>21</y>
-        <width>801</width>
-        <height>421</height>
-       </rect>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>true</bool>
       </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑</family>
-       </font>
+      <property name="currentIndex">
+       <number>0</number>
       </property>
-      <column>
-       <property name="text">
-        <string>sn</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>order</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>npcid</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>content</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>voicechat</string>
-       </property>
-      </column>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tabNpc">
-     <attribute name="title">
-      <string>Tab 2</string>
-     </attribute>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QTreeWidget" name="treeNpc">
-        <property name="sortingEnabled">
-         <bool>true</bool>
+      <widget class="QWidget" name="tabPlot">
+       <attribute name="title">
+        <string>Tab 1</string>
+       </attribute>
+       <widget class="QTreeWidget" name="treePlot">
+        <property name="geometry">
+         <rect>
+          <x>15</x>
+          <y>21</y>
+          <width>801</width>
+          <height>421</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+         </font>
         </property>
         <column>
          <property name="text">
-          <string>NpcSn</string>
+          <string>sn</string>
          </property>
         </column>
         <column>
          <property name="text">
-          <string>NpcName</string>
+          <string>order</string>
          </property>
         </column>
         <column>
          <property name="text">
-          <string>SceneName</string>
+          <string>npcid</string>
          </property>
         </column>
         <column>
          <property name="text">
-          <string>SceneSn</string>
+          <string>content</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>voicechat</string>
          </property>
         </column>
        </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="warningGroup">
-    <property name="geometry">
-     <rect>
-      <x>370</x>
-      <y>500</y>
-      <width>341</width>
-      <height>231</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>微软雅黑</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="title">
-     <string>警告</string>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="labelWarning">
-       <property name="contextMenuPolicy">
-        <enum>Qt::NoContextMenu</enum>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="locale">
-        <locale language="Chinese" country="China"/>
-       </property>
-       <property name="text">
-        <string>Warning</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-       </property>
       </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-        </font>
-       </property>
-       <property name="locale">
-        <locale language="Chinese" country="China"/>
-       </property>
-       <property name="text">
-        <string>重载</string>
-       </property>
+      <widget class="QWidget" name="tabNpc">
+       <attribute name="title">
+        <string>Tab 2</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QTreeWidget" name="treeNpc">
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <column>
+           <property name="text">
+            <string>NpcSn</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>NpcName</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>SceneName</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>SceneSn</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
       </widget>
-     </item>
-    </layout>
-   </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="widget" native="true"/>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="warningGroup">
+      <property name="font">
+       <font>
+        <family>微软雅黑</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="title">
+       <string>警告</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="labelWarning">
+         <property name="contextMenuPolicy">
+          <enum>Qt::NoContextMenu</enum>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="locale">
+          <locale language="Chinese" country="China"/>
+         </property>
+         <property name="text">
+          <string>Warning</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="locale">
+          <locale language="Chinese" country="China"/>
+         </property>
+         <property name="text">
+          <string>重载</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

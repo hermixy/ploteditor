@@ -5,7 +5,7 @@
 #include "progressbar.h"
 #include "settings.h"
 
-#include "plotsegmentviewer.h"
+#include "plotviewer.h"
 
 #include "utils.h"
 
@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   }
 
   BindMenuActions();
+
+  //  ui->tabWidget->hide();
 
   //  FillNpcTab();
   //  FillPlotTab();
@@ -115,7 +117,7 @@ void MainWindow::ShowSettingWidget() {
   //  plotedit->setWindowModality(Qt::WindowModal);
   //  plotedit->show();
 
-  auto plotviewer = new PlotSegmentViewer(nullptr);
+  auto plotviewer = new PlotViewer(nullptr);
   plotviewer->show();
 }
 
