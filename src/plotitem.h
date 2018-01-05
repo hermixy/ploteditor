@@ -4,22 +4,25 @@
 #include <QHBoxLayout>
 #include <QLabel>
 
-class PlotItem : public QWidget {
-  Q_OBJECT
+// TODO -> model item.
+class PlotItem {
  public:
-  explicit PlotItem(QWidget *parent = nullptr);
+  explicit PlotItem();
   ~PlotItem();
  signals:
 
  public slots:
 
- private:
-  QLabel *labelSn;
-  QLabel *labelNextSn;
-  QLabel *labelContent;
-  QLabel *labelVoice;
+ public:
+  void SetData(const QString &, const QString &, const QString &, const QString &);
 
-  QHBoxLayout *hbl;
+ private:
+  QString sn_;
+  QString next_sn_;
+  QString content_;
+  QString voice_;
+
+ private:
 };
 
 #endif  // PLOTITEM_H

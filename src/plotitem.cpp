@@ -1,32 +1,10 @@
 #include "plotitem.h"
 
-PlotItem::PlotItem(QWidget *parent) : QWidget(parent) {
-  label1 = new QLabel();
-  label2 = new QLabel();
+PlotItem::PlotItem() {}
 
-  hbl = new QHBoxLayout(this);
-
-  label1->setText("Sn");
-  label2->setText("Next Sn");
-
-  hbl->addWidget(label1);
-  hbl->addWidget(label2);
+void PlotItem::SetData(const QString &sn, const QString &nextsn, const QString &content,
+                       const QString &voice) {
+  sn_ = sn;
 }
 
-PlotItem::~PlotItem() {
-  if (nullptr != labelSn) {
-    delete labelSn;
-  }
-
-  if (nullptr != labelNextSn) {
-    delete labelNextSn;
-  }
-
-  if (nullptr != labelContent) {
-    delete labelContent;
-  }
-
-  if (nullptr != labelVoice) {
-    delete hbl;
-  }
-}
+PlotItem::~PlotItem() {}
