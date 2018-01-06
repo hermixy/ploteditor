@@ -30,7 +30,8 @@ SOURCES += \
     src/pch.cpp \
     src/ploteditdialog.cpp \
     src/plotitem.cpp \
-    src/plotviewer.cpp
+    src/plotviewer.cpp \
+    src/plot_viewer_item.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -42,7 +43,8 @@ HEADERS += \
     src/progressbar.h \
     src/ploteditdialog.h \
     src/plotitem.h \
-    src/plotviewer.h
+    src/plotviewer.h \
+    src/plot_viewer_item.h
 
 FORMS += \
     src/mainwindow.ui \

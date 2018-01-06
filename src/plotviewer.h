@@ -20,8 +20,18 @@ class PlotViewer : public QDialog {
   void RemoveItem(int);
 
  private:
+  QString GetPlotChain() {
+    QString ret = "";
+    if (plot_chain_.empty()) {
+      return ret;
+    }
+  }
+
+ private:
   QVector<PlotItem *> plot_items_;
   QVector<QListWidgetItem *> widget_items_;
+
+  QVector<QString> plot_chain_;
 
  private:
   Ui::PlotViewer *ui;
