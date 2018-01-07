@@ -41,12 +41,12 @@
     </widget>
    </item>
    <item>
-    <widget class="QListWidget" name="listWidget">
-     <property name="font">
-      <font>
-       <family>Microsoft YaHei UI</family>
-      </font>
-     </property>
+    <widget class="QTreeWidget" name="treeWidget">
+     <column>
+      <property name="text">
+       <string notr="true">1</string>
+      </property>
+     </column>
     </widget>
    </item>
    <item>

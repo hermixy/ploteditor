@@ -1,7 +1,9 @@
 #ifndef SETTINGS_DATA_H
 #define SETTINGS_DATA_H
 
-#include "pch.h"
+#include <QRegularExpression>
+#include <QSettings>
+#include <QString>
 
 class SettingsData {
  public:

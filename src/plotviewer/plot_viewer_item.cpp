@@ -1,4 +1,4 @@
-#include "plot_viewer_item.h"
+#include "pch.h"
 
 PlotViewerItem::PlotViewerItem(QWidget *parent,
                                const QString &sn,
@@ -10,10 +10,19 @@ PlotViewerItem::PlotViewerItem(QWidget *parent,
   sn_ = sn;
 
   label_sn_ = new QLabel();
+  label_sn_->setAlignment(Qt::AlignCenter);
+
   label_next_sn_ = new QLabel();
+  label_next_sn_->setAlignment(Qt::AlignCenter);
+
   label_npc_sn_ = new QLabel();
+  label_npc_sn_->setAlignment(Qt::AlignCenter);
+
   label_content_ = new QLabel();
+  label_content_->setAlignment(Qt::AlignCenter);
+
   label_voice_ = new QLabel();
+  label_voice_->setAlignment(Qt::AlignCenter);
 
   label_sn_->setText(sn);
   label_next_sn_->setText(next_sn);
@@ -22,6 +31,7 @@ PlotViewerItem::PlotViewerItem(QWidget *parent,
   label_voice_->setText(voice);
 
   hbl_ = new QHBoxLayout(this);
+  hbl_->setAlignment(Qt::AlignLeft);
 
   hbl_->addWidget(label_sn_);
   hbl_->addWidget(label_next_sn_);

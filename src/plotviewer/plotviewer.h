@@ -1,7 +1,8 @@
 #ifndef PLOTVIEWER_H
 #define PLOTVIEWER_H
 
-#include "plotviewer/plotitem.h"
+#include "plot_row_data.h"
+#include "plotviewer/plot_viewer_model.h"
 
 #include <QDialog>
 #include <QEvent>
@@ -19,21 +20,22 @@ class PlotViewer : public QDialog {
   ~PlotViewer();
 
  public:
-  void AddItem(PlotItem *);
-  void RemoveItem(PlotItem *);
+  void AddItem(PlotRowData *);
+  void RemoveItem(PlotRowData *);
   void RemoveItem(int);
 
  private:
-  QString UpdatePlotChain();
+  void UpdatePlotChain();
 
  protected:
   bool eventFilter(QObject *, QEvent *);
 
  private:
-  QVector<PlotItem *> plot_items_;
   QVector<QListWidgetItem *> widget_items_;
 
   QString plot_chain_;
+
+  QList<PlotRowData> plot_datas_;
 
  private:
   Ui::PlotViewer *ui;

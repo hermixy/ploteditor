@@ -1,34 +1,47 @@
-#include "PlotViewer.h"
+#include "plotviewer.h"
 #include "ui_plotviewer.h"
 
-#include "plotviewer/plot_viewer_item.h"
+#include "pch.h"
 
 PlotViewer::PlotViewer(QWidget *parent) : QDialog(parent), ui(new Ui::PlotViewer) {
   ui->setupUi(this);
 
   setWindowTitle(tr("Plot Chain"));
 
-  ui->listWidget->setSelectionMode(QAbstractItemView::SingleSelection);
-  ui->listWidget->setDragDropMode(QAbstractItemView::InternalMove);
-  ui->listWidget->setDragEnabled(true);
-  ui->listWidget->installEventFilter(this);
-  ui->listWidget->viewport()->setAcceptDrops(true);
-  ui->listWidget->setDropIndicatorShown(true);
-  ui->listWidget->setSortingEnabled(false);
+  QStringList header_labels;
+  header_labels.push_back(tr("Sn"));
+  header_labels.push_back(tr("Order"));
+  header_labels.push_back(tr("NpcSn"));
+  header_labels.push_back(tr("Content"));
+  header_labels.push_back(tr("Voice"));
 
-  for (int i = 0; i < 10; i++) {
-    QString strA = QString("A%1").arg(i);
-    QString strB = QString("B%1").arg(i);
-    QString strC = QString("C%1").arg(i);
-    QString strD = QString("D%1").arg(i);
-    QString strE = QString("E%1").arg(i);
+  ui->treeWidget->setColumnCount(header_labels.count());
+  ui->treeWidget->setHeaderLabels(header_labels);
 
-    auto viewer_item = new PlotViewerItem(nullptr, strA, strB, strC, strD, strE);
-    auto list_item = new QListWidgetItem();
-    list_item->setSizeHint(QSize(0, 50));
+  ui->treeWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+  ui->treeWidget->setDragDropMode(QAbstractItemView::InternalMove);
+  ui->treeWidget->setDragEnabled(true);
+  ui->treeWidget->installEventFilter(this);
+  ui->treeWidget->viewport()->setAcceptDrops(true);
+  ui->treeWidget->setDropIndicatorShown(false);
+  ui->treeWidget->setSortingEnabled(false);
 
-    ui->listWidget->addItem(list_item);
-    ui->listWidget->setItemWidget(list_item, viewer_item);
+  XlsxSQL *xlsx_sql = XlsxSQL::Instance();
+
+  if (nullptr != xlsx_sql) {
+    xlsx_sql->AnalysePlots("10000", plot_datas_);
+  }
+
+  for (PlotRowData &plot_data : plot_datas_) {
+    auto list_item = new QTreeWidgetItem();
+    list_item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
+    list_item->setText(0, plot_data.sn);
+    list_item->setText(1, plot_data.next_sn);
+    list_item->setText(2, plot_data.npc_sn);
+    list_item->setText(3, plot_data.content);
+    list_item->setText(4, plot_data.voice);
+
+    ui->treeWidget->addTopLevelItem(list_item);
   }
 }
 
@@ -36,43 +49,33 @@ PlotViewer::~PlotViewer() {
   delete ui;
 }
 
-void PlotViewer::AddItem(PlotItem *item) {
-  QListWidgetItem *listWidgetItem = new QListWidgetItem();
-}
-
-QString PlotViewer::UpdatePlotChain() {
+void PlotViewer::UpdatePlotChain() {
   plot_chain_.clear();
 
-  for (int i = 0; i < ui->listWidget->count(); i++) {
-    QListWidgetItem *ptr_widget_item = ui->listWidget->item(i);
-    PlotViewerItem *ptr_plot_item =
-        static_cast<PlotViewerItem *>(ui->listWidget->itemWidget(ptr_widget_item));
+  for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++) {
+    QTreeWidgetItem *ptr_widget_item = ui->treeWidget->topLevelItem(i);
 
     QString str_node;
-    if (i < ui->listWidget->count() - 1) {
-      str_node = QString("%1 -> ").arg(ptr_plot_item->GetSn());
+    if (i < ui->treeWidget->topLevelItemCount() - 1) {
+      str_node = QString("%1 -> ").arg(ptr_widget_item->text(0));
 
-      QListWidgetItem *ptr_next_widget_item = ui->listWidget->item(i + 1);
-      PlotViewerItem *ptr_next_plot_item =
-          static_cast<PlotViewerItem *>(ui->listWidget->itemWidget(ptr_next_widget_item));
-
-      ptr_plot_item->SetNextSn(ptr_next_plot_item->GetSn());
+      QTreeWidgetItem *ptr_next_widget_item = ui->treeWidget->topLevelItem(i + 1);
+      ptr_widget_item->setText(1, ptr_next_widget_item->text(0));
 
     } else {
-      str_node = ptr_plot_item->GetSn();
+      str_node = ptr_widget_item->text(0);
 
-      ptr_plot_item->SetNextSn("");
+      ptr_widget_item->setText(1, "");
     }
 
     plot_chain_.append(str_node);
   }
-
-  return plot_chain_;
 }
 
 bool PlotViewer::eventFilter(QObject *obj, QEvent *event) {
-  plot_chain_ = UpdatePlotChain();
+  UpdatePlotChain();
   ui->labelChain->setText(plot_chain_);
 
   return QObject::eventFilter(obj, event);
+  //  }
 }

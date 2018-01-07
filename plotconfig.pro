@@ -32,7 +32,9 @@ SOURCES += \
     src/plotviewer/ploteditdialog.cpp \
     src/plotviewer/plotitem.cpp \
     src/plotviewer/plotviewer.cpp \
-    src/plotviewer/plot_viewer_item.cpp
+    src/plotviewer/plot_viewer_item.cpp \
+    src/plotviewer/plot_viewer_model.cpp \
+    src/plot_row_data.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -45,7 +47,9 @@ HEADERS += \
     src/plotviewer/ploteditdialog.h \
     src/plotviewer/plotitem.h \
     src/plotviewer/plotviewer.h \
-    src/plotviewer/plot_viewer_item.h
+    src/plotviewer/plot_viewer_item.h \
+    src/plotviewer/plot_viewer_model.h \
+    src/plot_row_data.h
 
 FORMS += \
     src/mainwindow.ui \

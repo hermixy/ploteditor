@@ -5,6 +5,7 @@
 
 #include <qapplication.h>
 #include <qdialog.h>
+#include <qevent.h>
 #include <qfile.h>
 #include <qfiledialog.h>
 #include <qfileinfo.h>
@@ -12,19 +13,18 @@
 #include <qjsonobject.h>
 #include <qlabel.h>
 #include <qlineedit.h>
+#include <qlist.h>
 #include <qlistwidget.h>
 #include <qmainwindow.h>
+#include <qmap.h>
 #include <qmessagebox.h>
 #include <qprogressdialog.h>
 #include <qpushbutton.h>
 #include <qregularexpression.h>
 #include <qsettings.h>
 #include <qstring.h>
-#include <qwidget.h>
-
-#include <qevent.h>
-
 #include <qvector.h>
+#include <qwidget.h>
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -36,11 +36,22 @@
 
 #include <xlsxdocument.h>
 
-#include "progressbar.h"
-
 #include <rapidjson/document.h>
 #include <rapidjson/istreamwrapper.h>
 #include <fstream>
+
+#include "settings.h"
+#include "settings_data.h"
+#include "xlsx_sql.h"
+
+#include "plot_row_data.h"
+#include "plotviewer/plot_viewer_item.h"
+//#include "plotviewer/plot_viewer_model.h"
+#include "plotviewer/ploteditdialog.h"
+#include "plotviewer/plotviewer.h"
+#include "progressbar.h"
+
+#include "utils.h"
 
 // global variables
 

@@ -1,13 +1,10 @@
-#include "xlsx_sql.h"
+#include "pch.h"
 
-#include "progressbar.h"
+XlsxSQL *XlsxSQL::instance_ = nullptr;
 
-/*
- * @param plot path
- * @param npc path
- * @param scene path
- * */
 XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QString &scene_path) {
+  instance_ = this;
+
   npc_doc_ = new QXlsx::Document(npc_path);
   scene_doc_ = new QXlsx::Document(scene_path);
   plot_doc_ = new QXlsx::Document(plot_path);
@@ -21,10 +18,6 @@ XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QStrin
   CreateSceneTable();
 }
 
-QSqlDatabase &XlsxSQL::GetDataBase() {
-  return db_;
-}
-
 XlsxSQL::~XlsxSQL() {
   if (nullptr != plot_doc_)
     delete (plot_doc_);
@@ -34,6 +27,14 @@ XlsxSQL::~XlsxSQL() {
 
   if (nullptr != scene_doc_)
     delete (scene_doc_);
+}
+
+XlsxSQL *XlsxSQL::Instance() {
+  return instance_;
+}
+
+QSqlDatabase &XlsxSQL::GetDataBase() {
+  return db_;
 }
 
 bool XlsxSQL::ConnectDB() {
@@ -119,6 +120,8 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
             voice != query.value(4).toString()) {
           hasChanged = true;
         }
+      } else {
+        hasChanged = true;
       }
     }
 
@@ -150,40 +153,6 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
   delete pb;
 
   return true;
-}
-
-bool XlsxSQL::AnalysePlots(const QString &table_name) {
-  if (!db_.tables().contains(table_name)) {
-    PrintMsg("Table " + table_name + " not exists.");
-    return false;
-  }
-
-  QString plotchain_table_name = table_name + "Chain";
-  if (!db_.tables().contains(plotchain_table_name)) {
-    QSqlQuery query;
-    QString sql_statement = "CREATE TABLE IF NOT EXISTS " + plotchain_table_name +
-                            "(sn TEXT PRIMARY KEY," + "chain TEXT)";
-
-    QString error_tips = "Create table " + plotchain_table_name + " failed.";
-
-    if (!ExecuteSQLQuery(query, sql_statement, error_tips)) {
-      return false;
-    }
-  }
-
-  // analysing plot database
-  //  std::map<QString> not_head_map;
-  // TODO: analysing plot datbase.
-
-  QSqlQuery query;
-  QString sql_statement = "SELECT * FROM Plot";
-  query.prepare(sql_statement);
-
-  query.first();
-  while (query.next()) {
-  }
-
-  return false;
 }
 
 bool XlsxSQL::CreateNpcTable() {
@@ -233,6 +202,8 @@ bool XlsxSQL::CreateNpcTable() {
             scene != query.value(2).toString() || row != query.value(3).toString()) {
           hasChanged = true;
         }
+      } else {
+        hasChanged = true;
       }
     }
 
@@ -307,6 +278,8 @@ bool XlsxSQL::CreateSceneTable() {
         if (sn != query.value(0).toString() || scene != query.value(1).toString()) {
           hasChanged = true;
         }
+      } else {
+        hasChanged = true;
       }
     }
 
@@ -377,4 +350,34 @@ QString XlsxSQL::GetCell(QXlsx::Worksheet *sheet, unsigned row, unsigned col) {
   }
 
   return msg;
+}
+
+void XlsxSQL::AnalysePlots(const QString &plot_sn, QList<PlotRowData> &data) {
+  // check is already insert.
+  for (int i = 0; i < data.size(); i++) {
+    if (data[i].sn == plot_sn)
+      return;
+  }
+
+  QSqlQuery query;
+  QString sql = "SELECT * FROM Plot WHERE sn=:sn";
+  query.prepare(sql);
+  query.bindValue(":sn", plot_sn);
+
+  if (query.exec()) {
+    if (query.next()) {
+      QString next_sn = query.value(1).toString();
+
+      data.append(PlotRowData(query.value(0).toString(),
+                              next_sn,
+                              query.value(2).toString(),
+                              query.value(3).toString(),
+                              query.value(4).toString()));
+
+      if (next_sn.isEmpty())
+        return;
+      else
+        AnalysePlots(next_sn, data);
+    }
+  }
 }

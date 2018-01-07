@@ -1,13 +1,20 @@
 #ifndef XLSX_SQL_H
 #define XLSX_SQL_H
 
-#include "pch.h"
-#include "settings.h"
+#include <xlsxdocument.h>
+
+#include <QSqlDatabase>
+#include <QString>
+
+#include "plot_row_data.h"
 
 class XlsxSQL {
  public:
-  XlsxSQL(const QString &, const QString &, const QString &);
+  explicit XlsxSQL(const QString &, const QString &, const QString &);
   ~XlsxSQL();
+
+ public:
+  static XlsxSQL *Instance();
 
  public:
   bool ConnectDB();
@@ -22,13 +29,6 @@ class XlsxSQL {
    * @param current sheet name
    * */
   bool CreateSubPlotTable(const QString &, const QString &);
-
-  /*
-   * @param plot table name
-   * @descriptin Analysint the plot data, store the plot chain
-   * */
-  bool AnalysePlots(const QString &);
-
   bool CreateNpcTable();
   bool CreateSceneTable();
 
@@ -43,6 +43,14 @@ class XlsxSQL {
   void ReloadPlotXlsx();
   void ReloadNpcXlsx();
   void ReloadSceneXlsx();
+
+ public:
+  /*
+   * @param plot table name
+   * @param [out] result
+   * @descriptin Analysint the plot data, store the plot chain
+   * */
+  void AnalysePlots(const QString &, QList<PlotRowData> &);
 
  private:
   //
@@ -60,6 +68,9 @@ class XlsxSQL {
   QXlsx::Document *scene_doc_;
 
   QSqlDatabase db_;
+
+ private:
+  static XlsxSQL *instance_;
 };
 
 #endif  // XLSX_SQL_H

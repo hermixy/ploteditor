@@ -6,3 +6,4 @@ AllowShortLoopsOnASingleLine: false
 AlignAfterOpenBracket: Align
 AllowAllParametersOfDeclarationOnNextLine: false
 BinPackParameters: false
+BinPackArguments: false

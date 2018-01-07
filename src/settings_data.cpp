@@ -1,4 +1,4 @@
-#include "settings_data.h"
+#include "pch.h"
 
 SettingsData::SettingsData() {
   qsettings_ = new QSettings(GetINIFilePath(), QSettings::IniFormat);

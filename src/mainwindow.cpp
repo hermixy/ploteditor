@@ -1,14 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "plotviewer/ploteditdialog.h"
-#include "progressbar.h"
-#include "settings.h"
-
-#include "plotviewer/plotviewer.h"
-
-#include "utils.h"
-
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
@@ -17,7 +9,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   settings_data_ = new SettingsData();
 
   if (CheckAllConfigFiles()) {
-    xlsx_sql_ = new XlsxSQL(settings_data_->GetPlotXlsxPath(), settings_data_->GetNpcXlsxPath(),
+    xlsx_sql_ = new XlsxSQL(settings_data_->GetPlotXlsxPath(),
+                            settings_data_->GetNpcXlsxPath(),
                             settings_data_->GetScenePlotXlsxPath());
   } else {
     xlsx_sql_ = nullptr;
