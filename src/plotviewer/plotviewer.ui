@@ -19,6 +19,7 @@
      <property name="font">
       <font>
        <family>Microsoft YaHei UI</family>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="text">
@@ -31,6 +32,7 @@
      <property name="font">
       <font>
        <family>Microsoft YaHei UI</family>
+       <pointsize>9</pointsize>
       </font>
      </property>
      <property name="text">
@@ -57,42 +59,43 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnConfirm">
+       <widget class="QPushButton" name="btnInsert">
         <property name="font">
          <font>
           <family>Microsoft YaHei UI</family>
+          <pointsize>9</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>确认</string>
+         <string>插入新的对话</string>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QPushButton" name="btnDelete">
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei UI</family>
+          <pointsize>9</pointsize>
+         </font>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
+        <property name="text">
+         <string>删除当前选择</string>
         </property>
-       </spacer>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnSave">
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei UI</family>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>保存</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

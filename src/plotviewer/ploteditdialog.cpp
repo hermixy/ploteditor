@@ -4,7 +4,7 @@
 PlotEditDialog::PlotEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui::PlotEditDialog) {
   ui->setupUi(this);
 
-  setWindowTitle(tr("对话编辑"));
+  setWindowTitle(tr("Plot Edit"));
 
   connect(ui->buttonBox->button(QDialogButtonBox::Cancel), SIGNAL(released()), this, SLOT(close()));
   connect(ui->buttonBox->button(QDialogButtonBox::Ok), SIGNAL(released()), this, SLOT(Save()));

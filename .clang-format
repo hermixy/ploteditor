@@ -4,3 +4,5 @@ AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
 AlignAfterOpenBracket: Align
+AllowAllParametersOfDeclarationOnNextLine: false
+BinPackParameters: false

@@ -1,16 +1,18 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "ploteditdialog.h"
+#include "plotviewer/ploteditdialog.h"
 #include "progressbar.h"
 #include "settings.h"
 
-#include "plotviewer.h"
+#include "plotviewer/plotviewer.h"
 
 #include "utils.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
+
+  setWindowTitle(tr("Plot Editor Window"));
 
   settings_data_ = new SettingsData();
 
@@ -117,7 +119,8 @@ void MainWindow::ShowSettingWidget() {
   //  plotedit->setWindowModality(Qt::WindowModal);
   //  plotedit->show();
 
-  auto plotviewer = new PlotViewer(nullptr);
+  auto plotviewer = new PlotViewer(this);
+  plotviewer->setWindowModality(Qt::WindowModal);
   plotviewer->show();
 }
 

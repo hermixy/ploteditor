@@ -17,7 +17,8 @@ TEMPLATE = app
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
-INCLUDEPATH += 3rdparty
+INCLUDEPATH += 3rdparty \
+    src
 
 SOURCES += \
     src/main.cpp \
@@ -28,10 +29,10 @@ SOURCES += \
     src/utils.cpp \
     src/progressbar.cpp \
     src/pch.cpp \
-    src/ploteditdialog.cpp \
-    src/plotitem.cpp \
-    src/plotviewer.cpp \
-    src/plot_viewer_item.cpp
+    src/plotviewer/ploteditdialog.cpp \
+    src/plotviewer/plotitem.cpp \
+    src/plotviewer/plotviewer.cpp \
+    src/plotviewer/plot_viewer_item.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -41,17 +42,17 @@ HEADERS += \
     src/settings_data.h \
     src/utils.h \
     src/progressbar.h \
-    src/ploteditdialog.h \
-    src/plotitem.h \
-    src/plotviewer.h \
-    src/plot_viewer_item.h
+    src/plotviewer/ploteditdialog.h \
+    src/plotviewer/plotitem.h \
+    src/plotviewer/plotviewer.h \
+    src/plotviewer/plot_viewer_item.h
 
 FORMS += \
     src/mainwindow.ui \
     src/settings.ui \
     src/progressbar.ui \
-    src/ploteditdialog.ui \
-    src/plotviewer.ui
+    src/plotviewer/ploteditdialog.ui \
+    src/plotviewer/plotviewer.ui
 
 DISTFILES += \
     notes.md

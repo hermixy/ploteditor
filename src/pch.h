@@ -22,6 +22,8 @@
 #include <qstring.h>
 #include <qwidget.h>
 
+#include <qevent.h>
+
 #include <qvector.h>
 
 #include <QHBoxLayout>
@@ -34,7 +36,6 @@
 
 #include <xlsxdocument.h>
 
-#include "plotitem.h"
 #include "progressbar.h"
 
 #include <rapidjson/document.h>
