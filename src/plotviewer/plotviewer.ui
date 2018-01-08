@@ -6,12 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>726</width>
+    <width>1320</width>
     <height>496</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Microsoft YaHei UI</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Dialog</string>
+  </property>
+  <property name="locale">
+   <locale language="Chinese" country="China"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -42,6 +50,15 @@
    </item>
    <item>
     <widget class="QTreeWidget" name="treeWidget">
+     <property name="font">
+      <font>
+       <family>Microsoft YaHei UI</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="locale">
+      <locale language="Chinese" country="China"/>
+     </property>
      <column>
       <property name="text">
        <string notr="true">1</string>

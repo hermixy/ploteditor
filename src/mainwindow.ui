@@ -35,46 +35,17 @@
        <attribute name="title">
         <string>Tab 1</string>
        </attribute>
-       <widget class="QTreeWidget" name="treePlot">
-        <property name="geometry">
-         <rect>
-          <x>15</x>
-          <y>21</y>
-          <width>801</width>
-          <height>421</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>微软雅黑</family>
-         </font>
-        </property>
-        <column>
-         <property name="text">
-          <string>sn</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>order</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>npcid</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>content</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>voicechat</string>
-         </property>
-        </column>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QTableView" name="tableView">
+          <property name="font">
+           <font>
+            <family>Microsoft YaHei UI</family>
+           </font>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tabNpc">
        <attribute name="title">
