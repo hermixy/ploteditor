@@ -30,6 +30,9 @@ MainWindow::~MainWindow() {
 
   if (xlsx_sql_ != nullptr)
     delete xlsx_sql_;
+
+  if (plot_model_ != nullptr)
+    delete plot_model_;
 }
 
 bool MainWindow::CheckAllConfigFiles() {
@@ -69,17 +72,18 @@ bool MainWindow::CheckAllConfigFiles() {
 void MainWindow::ReloadSettings() {}
 
 void MainWindow::FillPlotTab() {
-  QSqlTableModel *model = new QSqlTableModel();
-  model->setTable("Plot");
-  model->setEditStrategy(QSqlTableModel::OnFieldChange);
-  model->setSort(5, Qt::AscendingOrder);
+  plot_model_ = new QSqlTableModel();
+  plot_model_->setTable("Plot");
+  plot_model_->setEditStrategy(QSqlTableModel::OnFieldChange);
+  plot_model_->setSort(5, Qt::AscendingOrder);
 
-  model->select();
-  // model->sort(5, Qt::AscendingOrder);
+  plot_model_->select();
 
-  ui->tableView->setModel(model);
+  ui->tableView->setModel(plot_model_);
   ui->tableView->resizeRowsToContents();
   ui->tableView->setColumnWidth(3, 500);
+  ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 void MainWindow::FillNpcTab() {
@@ -104,11 +108,28 @@ void MainWindow::ShowSettingWidget() {
   //  plotedit->setWindowModality(Qt::WindowModal);
   //  plotedit->show();
 
-  auto plotviewer = new PlotViewer(this);
-  plotviewer->setWindowModality(Qt::WindowModal);
-  plotviewer->show();
+  //  auto plotviewer = new PlotViewer(this);
+  //  plotviewer->setWindowModality(Qt::WindowModal);
+  //  plotviewer->show();
 }
 
 void MainWindow::BindMenuActions() {
   connect(ui->actionShowSettings, &QAction::triggered, this, &MainWindow::ShowSettingWidget);
+  connect(ui->tableView,
+          SIGNAL(doubleClicked(const QModelIndex &)),
+          this,
+          SLOT(OnPlotRowDoubleClicked(const QModelIndex &)));
+}
+
+void MainWindow::OnPlotRowDoubleClicked(const QModelIndex &idx) {
+  int row = idx.row();
+  //  const QModelIndex first_index = ui->tableView->model()->index(row, 0);
+  const QModelIndex first_index = plot_model_->index(row, 0);
+  if (first_index.isValid()) {
+    QString plot_sn = first_index.data(Qt::DisplayRole).toString();
+
+    auto plotviewer = new PlotViewer(plot_sn, this);
+    plotviewer->setWindowModality(Qt::WindowModal);
+    plotviewer->show();
+  }
 }

@@ -102,6 +102,18 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="btnRegenerate">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>重新生成对话Sn</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="btnSave">
         <property name="font">
          <font>

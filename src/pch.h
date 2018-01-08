@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include <QAbstractItemView>
 #include <QApplication>
 #include <QDialog>
 #include <QEvent>
@@ -17,6 +18,7 @@
 #include <QMainWindow>
 #include <QMap>
 #include <QMessageBox>
+#include <QModelIndex>
 #include <QProgressDialog>
 #include <QPushButton>
 #include <QRegularExpression>

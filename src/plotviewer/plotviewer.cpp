@@ -3,7 +3,8 @@
 
 #include "pch.h"
 
-PlotViewer::PlotViewer(QWidget *parent) : QDialog(parent), ui(new Ui::PlotViewer) {
+PlotViewer::PlotViewer(const QString &plot_sn, QWidget *parent)
+    : QDialog(parent), ui(new Ui::PlotViewer) {
   ui->setupUi(this);
 
   setWindowTitle(tr("Plot Chain"));
@@ -25,11 +26,14 @@ PlotViewer::PlotViewer(QWidget *parent) : QDialog(parent), ui(new Ui::PlotViewer
   ui->treeWidget->viewport()->setAcceptDrops(true);
   ui->treeWidget->setDropIndicatorShown(false);
   ui->treeWidget->setSortingEnabled(false);
+  ui->treeWidget->setColumnWidth(3, 500);
+  ui->treeWidget->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
   XlsxSQL *xlsx_sql = XlsxSQL::Instance();
 
   if (nullptr != xlsx_sql) {
-    xlsx_sql->AnalysePlots("10000", plot_datas_);
+    xlsx_sql->AnalysePlots(plot_sn, plot_datas_);
+    xlsx_sql->RearrangePlots(plot_datas_);
   }
 
   for (PlotRowData &plot_data : plot_datas_) {

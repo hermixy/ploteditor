@@ -50,7 +50,9 @@ class XlsxSQL {
    * @param [out] result
    * @descriptin Analysint the plot data, store the plot chain
    * */
-  void AnalysePlots(const QString &, QList<PlotRowData> &);
+  void AnalysePlots(const QString &, QVector<PlotRowData> &);
+
+  void RearrangePlots(QVector<PlotRowData> &);
 
  private:
   //

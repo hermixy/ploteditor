@@ -16,7 +16,7 @@ class PlotViewer : public QDialog {
   Q_OBJECT
 
  public:
-  explicit PlotViewer(QWidget *parent = 0);
+  explicit PlotViewer(const QString &, QWidget *parent = 0);
   ~PlotViewer();
 
  public:
@@ -35,7 +35,7 @@ class PlotViewer : public QDialog {
 
   QString plot_chain_;
 
-  QList<PlotRowData> plot_datas_;
+  QVector<PlotRowData> plot_datas_;
 
  private:
   Ui::PlotViewer *ui;

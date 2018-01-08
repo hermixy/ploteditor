@@ -352,7 +352,7 @@ QString XlsxSQL::GetCell(QXlsx::Worksheet *sheet, unsigned row, unsigned col) {
   return msg;
 }
 
-void XlsxSQL::AnalysePlots(const QString &plot_sn, QList<PlotRowData> &data) {
+void XlsxSQL::AnalysePlots(const QString &plot_sn, QVector<PlotRowData> &data) {
   // check is already insert.
   for (int i = 0; i < data.size(); i++) {
     if (data[i].sn == plot_sn)
@@ -380,4 +380,51 @@ void XlsxSQL::AnalysePlots(const QString &plot_sn, QList<PlotRowData> &data) {
         AnalysePlots(next_sn, data);
     }
   }
+
+  sql = "SELECT * FROM Plot WHERE next=:next";
+  query.prepare(sql);
+  query.bindValue(":next", plot_sn);
+
+  if (query.exec()) {
+    if (query.next()) {
+      QString sn = query.value(0).toString();
+      AnalysePlots(sn, data);
+    }
+  }
+}
+
+void XlsxSQL::RearrangePlots(QVector<PlotRowData> &data) {
+  // get head
+  QMap<QString, int> in_degrees;
+  for (auto &row_data : data) {
+    if (in_degrees[row_data.sn] >= 1) {
+      continue;
+    } else {
+      in_degrees[row_data.sn] = 0;
+      in_degrees[row_data.next_sn] = 1;
+    }
+  }
+
+  QString head_sn;
+  for (auto &key : in_degrees.keys()) {
+    if (in_degrees.value(key) == 0) {
+      head_sn = key;
+      break;
+    }
+  }
+
+  int prev_size = data.size();
+  int pos = 0;
+  for (int i = 0; i < data.size(); i++) {
+    for (int j = 0; j < data.size(); j++) {
+      if (head_sn == data[j].sn) {
+        head_sn = data[j].next_sn;
+        data.insert(pos, data[j]);
+        pos += 1;
+        break;
+      }
+    }
+  }
+
+  data.resize(prev_size);
 }

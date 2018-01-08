@@ -18,6 +18,7 @@ class MainWindow : public QMainWindow {
 
  private slots:
   void ShowSettingWidget();
+  void OnPlotRowDoubleClicked(const QModelIndex &);
 
  private:
   bool CheckAllConfigFiles();
@@ -33,6 +34,8 @@ class MainWindow : public QMainWindow {
 
   XlsxSQL *xlsx_sql_;
   SettingsData *settings_data_;
+
+  QSqlTableModel *plot_model_;
 
  private:
   Ui::MainWindow *ui;
