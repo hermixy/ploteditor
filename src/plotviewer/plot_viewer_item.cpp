@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "plot_viewer_item.h"
 
 PlotViewerItem::PlotViewerItem(QWidget *parent,
                                const QString &sn,

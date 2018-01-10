@@ -54,6 +54,11 @@ class XlsxSQL {
 
   void RearrangePlots(QVector<PlotRowData> &);
 
+ public:
+  void GetScenes(QStringList &);
+  void GetNpcs(const QString &, QList<QString> &);
+  void GetSceneOfNpc(const QString &, QString &, QString &, QString &);
+
  private:
   //
   // @param QXlsx::Worksheet *

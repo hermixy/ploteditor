@@ -86,17 +86,7 @@ void MainWindow::FillPlotTab() {
   ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
-void MainWindow::FillNpcTab() {
-  for (int i = 1; i < 10; i++) {
-    QTreeWidgetItem *item = new QTreeWidgetItem();
-    item->setText(0, QString::number(i * 1));
-    item->setText(1, QString::number(i * 2));
-    item->setText(2, QString::number(i * 3));
-    item->setText(3, QString::number(i * 4));
-
-    ui->treeNpc->insertTopLevelItem(0, item);
-  }
-}
+void MainWindow::FillNpcTab() {}
 
 void MainWindow::ShowSettingWidget() {
   //  auto settings_ = new Settings(nullptr);
@@ -123,12 +113,12 @@ void MainWindow::BindMenuActions() {
 
 void MainWindow::OnPlotRowDoubleClicked(const QModelIndex &idx) {
   int row = idx.row();
-  //  const QModelIndex first_index = ui->tableView->model()->index(row, 0);
   const QModelIndex first_index = plot_model_->index(row, 0);
   if (first_index.isValid()) {
     QString plot_sn = first_index.data(Qt::DisplayRole).toString();
 
-    auto plotviewer = new PlotViewer(plot_sn, this);
+    PlotViewer *plotviewer = new PlotViewer(plot_sn, this);
+    plotviewer->setAttribute(Qt::WA_DeleteOnClose);
     plotviewer->setWindowModality(Qt::WindowModal);
     plotviewer->show();
   }

@@ -3,6 +3,7 @@
 
 #include "plot_row_data.h"
 #include "plotviewer/plot_viewer_model.h"
+#include "plotviewer/ploteditdialog.h"
 
 #include <QDialog>
 #include <QEvent>
@@ -19,16 +20,16 @@ class PlotViewer : public QDialog {
   explicit PlotViewer(const QString &, QWidget *parent = 0);
   ~PlotViewer();
 
- public:
-  void AddItem(PlotRowData *);
-  void RemoveItem(PlotRowData *);
-  void RemoveItem(int);
-
  private:
   void UpdatePlotChain();
+  void UpdatePlot(const PlotRowData &);
 
  protected:
   bool eventFilter(QObject *, QEvent *);
+
+ private slots:
+  void OnItemDoubleClicked(const QModelIndex &);
+  void OnItemSelected();
 
  private:
   QVector<QListWidgetItem *> widget_items_;
@@ -39,6 +40,7 @@ class PlotViewer : public QDialog {
 
  private:
   Ui::PlotViewer *ui;
+  PlotEditDialog *edit_dialog_;
 };
 
 #endif  // PLOTVIEWER_H

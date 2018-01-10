@@ -27,6 +27,8 @@ XlsxSQL::~XlsxSQL() {
 
   if (nullptr != scene_doc_)
     delete (scene_doc_);
+
+  instance_ = nullptr;
 }
 
 XlsxSQL *XlsxSQL::Instance() {
@@ -128,11 +130,11 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
     if (hasChanged) {
       QString sql_statement = "INSERT OR REPLACE INTO " + table_name + " VALUES (?, ?, ?, ?, ?, ?)";
       query.prepare(sql_statement);
-      query.addBindValue(GetCell(sheet, i, 1));  // sn
-      query.addBindValue(GetCell(sheet, i, 2));  // order(next)
-      query.addBindValue(GetCell(sheet, i, 3));  // npc sn
-      query.addBindValue(GetCell(sheet, i, 4));  // content
-      query.addBindValue(GetCell(sheet, i, 5));  // voice
+      query.addBindValue(sn);       // sn
+      query.addBindValue(order);    // order(next)
+      query.addBindValue(npcsn);    // npc sn
+      query.addBindValue(content);  // content
+      query.addBindValue(voice);    // voice
       query.addBindValue(QString::number(i));
 
       error_tips = GlobalStrs::InsertFailed + sql_statement;
@@ -427,4 +429,59 @@ void XlsxSQL::RearrangePlots(QVector<PlotRowData> &data) {
   }
 
   data.resize(prev_size);
+}
+
+void XlsxSQL::GetScenes(QStringList &scenes) {
+  scenes.clear();
+
+  QSqlQuery query;
+  QString sql = QString("SELECT * FROM %1").arg(GlobalStrs::SceneTableName);
+
+  query.prepare(sql);
+  if (query.exec()) {
+    while (query.next()) {
+      QString sn = query.value(0).toString();
+      QString name = query.value(1).toString();
+
+      scenes.append(QString("%1,%2").arg(sn, name));
+    }
+  }
+}
+
+void XlsxSQL::GetSceneOfNpc(const QString &npc_sn,
+                            QString &npc_name,
+                            QString &scene_sn,
+                            QString &scene_name) {
+  scene_sn = "";
+  scene_name = "";
+
+  qDebug() << "npc_sn: " << npc_sn;
+
+  if (npc_sn == "" || npc_sn == "0") {
+    return;
+  }
+
+  QSqlQuery query;
+  QString sql = QString("SELECT * FROM Npc WHERE sn=:sn");
+  query.prepare(sql);
+  query.bindValue(":sn", npc_sn);
+
+  if (query.exec()) {
+    if (query.next()) {
+      npc_name = query.value(1).toString();
+      scene_sn = query.value(2).toString();
+    }
+  }
+
+  qDebug() << "scene_sn: " << scene_sn;
+
+  sql = QString("SELECT * FROM Scene WHERE sn=:sn");
+  query.prepare(sql);
+  query.bindValue(":sn", scene_sn);
+
+  if (query.exec()) {
+    if (query.next()) {
+      scene_name = query.value(1).toString();
+    }
+  }
 }

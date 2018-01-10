@@ -28,55 +28,127 @@
       <property name="enabled">
        <bool>true</bool>
       </property>
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Triangular</enum>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
       <widget class="QWidget" name="tabPlot">
        <attribute name="title">
-        <string>Tab 1</string>
+        <string>对话列表</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QTableView" name="tableView">
-          <property name="font">
-           <font>
-            <family>Microsoft YaHei UI</family>
-           </font>
+         <widget class="QFrame" name="framePlot">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QTableView" name="tableView">
+             <property name="font">
+              <font>
+               <family>Microsoft YaHei UI</family>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border-top-color: rgba(255, 255, 255, 0);
+border-right-color: rgba(255, 255, 255, 0);
+border-left-color: rgba(255, 255, 255, 0);</string>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::SingleSelection</enum>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tabNpc">
+      <widget class="QWidget" name="tabMission">
        <attribute name="title">
-        <string>Tab 2</string>
+        <string>任务对话列表</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
+        <item row="1" column="0">
+         <widget class="QTreeView" name="treeView"/>
+        </item>
         <item row="0" column="0">
-         <widget class="QTreeWidget" name="treeNpc">
-          <property name="sortingEnabled">
-           <bool>true</bool>
+         <widget class="QFrame" name="frameMission">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
-          <column>
-           <property name="text">
-            <string>NpcSn</string>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <property name="leftMargin">
+            <number>0</number>
            </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>NpcName</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>SceneName</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>SceneSn</string>
-           </property>
-          </column>
+           <item>
+            <widget class="QLineEdit" name="searchContent"/>
+           </item>
+           <item>
+            <widget class="QComboBox" name="searchCond"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnSearch">
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>搜索</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnReloadMission">
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>重新载入任务表</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
