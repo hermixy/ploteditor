@@ -19,6 +19,8 @@ XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QStrin
 }
 
 XlsxSQL::~XlsxSQL() {
+  this->db_.close();
+
   if (nullptr != plot_doc_)
     delete (plot_doc_);
 
@@ -84,10 +86,16 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
 
     QString error_tips = "Create table " + table_name + " failed.";
 
-    if (!ExecuteSQLQuery(query, sql_statement, error_tips)) {
+    qDebug() << "Create table " << table_name << " start.";
+
+    query.prepare(sql_statement);
+    if (!query.exec()) {
+      query.finish();
       return false;
     }
   }
+
+  qDebug() << "Create table done.";
 
   QXlsx::Worksheet *sheet = plot_doc_->currentWorksheet();
   QXlsx::CellRange cell_range = plot_doc_->currentWorksheet()->dimension();
@@ -116,19 +124,25 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
     query.prepare(sql);
     query.bindValue(":sn", sn);
     if (query.exec()) {
-      if (query.next()) {
-        if (sn != query.value(0).toString() || order != query.value(1).toString() ||
-            npcsn != query.value(2).toString() || content != query.value(3).toString() ||
-            voice != query.value(4).toString()) {
+      if (!query.first()) {
+        hasChanged = true;
+      } else {
+        if (query.next()) {
+          if (sn != query.value(0).toString() || order != query.value(1).toString() ||
+              npcsn != query.value(2).toString() || content != query.value(3).toString() ||
+              voice != query.value(4).toString()) {
+            hasChanged = true;
+          }
+        } else {
           hasChanged = true;
         }
-      } else {
-        hasChanged = true;
       }
     }
 
+    query.finish();
+
     if (hasChanged) {
-      QString sql_statement = "INSERT OR REPLACE INTO " + table_name + " VALUES (?, ?, ?, ?, ?, ?)";
+      QString sql_statement = "INSERT INTO " + table_name + " VALUES (?, ?, ?, ?, ?, ?)";
       query.prepare(sql_statement);
       query.addBindValue(sn);       // sn
       query.addBindValue(order);    // order(next)
@@ -141,11 +155,15 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
       if (!query.exec()) {
         PrintMsg(error_tips);
 
+        query.finish();
+
         pb->close();
         delete pb;
 
         return false;
       }
+
+      query.finish();
     }
 
     pb->SetValue(i);
@@ -171,6 +189,8 @@ bool XlsxSQL::CreateNpcTable() {
       PrintMsg("Create table " + GlobalStrs::NpcTableName + " failed");
       return false;
     }
+
+    query.finish();
   }
 
   QXlsx::Worksheet *sheet = npc_doc_->currentWorksheet();
@@ -209,6 +229,8 @@ bool XlsxSQL::CreateNpcTable() {
       }
     }
 
+    query.finish();
+
     if (hasChanged) {
       QString sql_statement =
           "INSERT OR REPLACE INTO " + GlobalStrs::NpcTableName + " VALUES (?, ?, ?, ?)";
@@ -227,6 +249,8 @@ bool XlsxSQL::CreateNpcTable() {
 
         return false;
       }
+
+      query.finish();
     }
 
     pb->SetValue(i);
@@ -250,6 +274,8 @@ bool XlsxSQL::CreateSceneTable() {
       PrintMsg("Create table " + GlobalStrs::SceneTableName + " failed");
       return false;
     }
+
+    query.finish();
   }
 
   QXlsx::Worksheet *sheet = scene_doc_->currentWorksheet();
@@ -285,6 +311,8 @@ bool XlsxSQL::CreateSceneTable() {
       }
     }
 
+    query.finish();
+
     if (hasChanged) {
       QString sql_statement =
           "INSERT OR REPLACE INTO " + GlobalStrs::SceneTableName + " VALUES(?, ?)";
@@ -301,6 +329,8 @@ bool XlsxSQL::CreateSceneTable() {
 
         return false;
       }
+
+      query.finish();
     }
 
     pb->SetValue(i);
@@ -318,6 +348,42 @@ bool XlsxSQL::CreateSceneNpcTable() {
 
 bool XlsxSQL::CreateMissionTable() {
   return false;
+}
+
+void XlsxSQL::DropPlotTable() {
+  QSqlQuery query(this->db_);
+  QString sql = "DROP TABLE IF EXISTS Plot";
+  query.prepare(sql);
+  if (query.exec()) {
+    qDebug() << "Drop Plot done.";
+  } else {
+    qDebug() << "SqLite error:" << query.lastError().text()
+             << ", SqLite error code:" << query.lastError().number();
+  }
+
+  query.finish();
+
+  sql = "DROP TABLE IF EXISTS FightPlot";
+  query.prepare(sql);
+  if (query.exec()) {
+    qDebug() << "Drop FightPlot done.";
+  } else {
+    qDebug() << "SqLite error:" << query.lastError().text()
+             << ", SqLite error code:" << query.lastError().number();
+  }
+
+  query.finish();
+
+  sql = "DROP TABLE IF EXISTS FunctionPlot";
+  query.prepare(sql);
+  if (query.exec()) {
+    qDebug() << "Drop FunctionPlot done.";
+  } else {
+    qDebug() << "SqLite error:" << query.lastError().text()
+             << ", SqLite error code:" << query.lastError().number();
+  }
+
+  query.finish();
 }
 
 QString XlsxSQL::GetCell(QXlsx::Worksheet *sheet, unsigned row, unsigned col) {
@@ -383,6 +449,8 @@ void XlsxSQL::AnalysePlots(const QString &plot_sn, QVector<PlotRowData> &data) {
     }
   }
 
+  query.finish();
+
   sql = "SELECT * FROM Plot WHERE next=:next";
   query.prepare(sql);
   query.bindValue(":next", plot_sn);
@@ -393,6 +461,8 @@ void XlsxSQL::AnalysePlots(const QString &plot_sn, QVector<PlotRowData> &data) {
       AnalysePlots(sn, data);
     }
   }
+
+  query.finish();
 }
 
 void XlsxSQL::RearrangePlots(QVector<PlotRowData> &data) {
@@ -446,6 +516,8 @@ void XlsxSQL::GetScenes(QStringList &scenes) {
       scenes.append(QString("%1,%2").arg(sn, name));
     }
   }
+
+  query.finish();
 }
 
 void XlsxSQL::GetSceneOfNpc(const QString &npc_sn,
@@ -473,6 +545,8 @@ void XlsxSQL::GetSceneOfNpc(const QString &npc_sn,
     }
   }
 
+  query.finish();
+
   qDebug() << "scene_sn: " << scene_sn;
 
   sql = QString("SELECT * FROM Scene WHERE sn=:sn");
@@ -484,4 +558,6 @@ void XlsxSQL::GetSceneOfNpc(const QString &npc_sn,
       scene_name = query.value(1).toString();
     }
   }
+
+  query.finish();
 }

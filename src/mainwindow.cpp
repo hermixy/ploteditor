@@ -28,11 +28,14 @@ MainWindow::~MainWindow() {
   delete ui;
   delete settings_data_;
 
-  if (xlsx_sql_ != nullptr)
-    delete xlsx_sql_;
-
-  if (plot_model_ != nullptr)
+  if (plot_model_ != nullptr) {
     delete plot_model_;
+  }
+
+  if (xlsx_sql_ != nullptr) {
+    xlsx_sql_->DropPlotTable();
+    delete xlsx_sql_;
+  }
 }
 
 bool MainWindow::CheckAllConfigFiles() {
@@ -89,18 +92,10 @@ void MainWindow::FillPlotTab() {
 void MainWindow::FillNpcTab() {}
 
 void MainWindow::ShowSettingWidget() {
-  //  auto settings_ = new Settings(nullptr);
-
-  //  settings_->setWindowModality(Qt::WindowModal);
-  //  settings_->show();
-
-  //  auto plotedit = new PlotEditDialog(nullptr);
-  //  plotedit->setWindowModality(Qt::WindowModal);
-  //  plotedit->show();
-
-  //  auto plotviewer = new PlotViewer(this);
-  //  plotviewer->setWindowModality(Qt::WindowModal);
-  //  plotviewer->show();
+  auto settings_ = new Settings(this);
+  settings_->setAttribute(Qt::WA_DeleteOnClose);
+  settings_->setWindowModality(Qt::WindowModal);
+  settings_->show();
 }
 
 void MainWindow::BindMenuActions() {

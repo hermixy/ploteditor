@@ -39,6 +39,8 @@ class XlsxSQL {
 
   bool CreateMissionTable();
 
+  void DropPlotTable();
+
  public:
   void ReloadPlotXlsx();
   void ReloadNpcXlsx();

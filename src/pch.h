@@ -38,10 +38,6 @@
 
 #include <xlsxdocument.h>
 
-#include <rapidjson/document.h>
-#include <rapidjson/istreamwrapper.h>
-#include <fstream>
-
 #include "settings.h"
 #include "settings_data.h"
 #include "xlsx_sql.h"
@@ -117,12 +113,5 @@ void PrintMsg(const QString &content);
  * @param initial value
  * */
 ProgressBar *CreateNewProgressBar(const QString &, const QString &, int, int, int);
-
-/*
- * @param QSqlQuery
- * @param Sql statement
- * @param Error tips
- * */
-bool ExecuteSQLQuery(QSqlQuery &, const QString &, const QString &);
 
 #endif  // PCH_H

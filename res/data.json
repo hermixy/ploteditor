@@ -1,0 +1,37 @@
+{
+    
+    
+    "SQL_PlotTableName" : "Plot",
+    "SQL_NpcTableName": "Npc",
+    "SQL_SceneTableName": "Scene",
+    "SQL_MissionTableName": "Mission",
+    
+    "SQL_CreatePlotTable" : "CREATE TABLE IF NOT EXISTS Plot (sn TEXT PRIMARY KEY NOT NULL, next TEXT, npcId INTEGER, content BLOB, voiceChat TEXT, row INTEGER)",
+    "SQL_InsertIntoPlot" : "INSERT INTO Plot VALUES (?, ?, ?, ?, ?, ?)",
+    "SQL_InsertOrReplaceIntoPlot" : "INSERT OR REPLACE INTO Plot VALUES (?, ?, ?, ?, ?, ?)",
+    "SQL_DropPlot": "DROP TABLE IF EXISTS Plot",
+
+    "SQL_CreateNpcTable" : "CREATE TABLE IF NOT EXISTS Npc (sn INTEGER PRIMARY KEY, name TEXT, scene INTEGER, row INTERGER)",
+    "SQL_InsertIntoNpc" : "INSERT INTO Npc VALUES (?, ?, ?, ?)",
+    "SQL_InsertOrReplaceIntoNpc" : "INSERT OR REPLACE INTO Npc VALUES (?, ?, ?, ?)",
+    "SQL_DropNpc": "DROP TABLE IF EXISTS Npc",
+
+    "SQL_CreateSceneTable" : "CREATE TABLE IF NOT EXISTS Scene (sn INTEGER PRIMARY KEY, name TEXT)",
+    "SQL_InsertIntoScene": "INSERT INTO Scene VALUES(?, ?)",
+    "SQL_InsertOrReplaceIntoScene": "INSERT OR REPLACE INTO Scene VALUES(?, ?)",
+    "SQL_DropScene": "DROP TABLE IF EXISTS Scene",
+
+    "SQL_CreateMissionTable" : "CREATE TABLE IF NOT EXISTS Mission(sn INTEGER PRIMARY KEY, name TEXT, desc TEXT, plotTask TEXT, beforeAccept TEXT, afterAccept TEXT, beforeSubmit TEXT, afterSubmit TEXT, beforeExec TEXT, jump TEXT)",
+    "SQL_InsertIntoMission" : "INSERT INTO Mission VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "SQL_InsertOrReplaceIntoMission" : "INSERT OR REPLACE INTO Mission VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "SQL_DropMission": "DROP TABLE IF EXISTS Mission",
+
+    "SQL_SelectConfSn" : "SELECT * FROM %1 WHERE sn = :sn"
+}
+
+
+
+
+
+
+
