@@ -11,7 +11,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   if (CheckAllConfigFiles()) {
     xlsx_sql_ = new XlsxSQL(settings_data_->GetPlotXlsxPath(),
                             settings_data_->GetNpcXlsxPath(),
-                            settings_data_->GetSceneXlsxPath());
+                            settings_data_->GetSceneXlsxPath(),
+                            settings_data_->GetMissionXlsxPath());
   } else {
     xlsx_sql_ = nullptr;
   }
@@ -20,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
   //  ui->tabWidget->hide();
 
-  //  FillNpcTab();
+  FillMissionTab();
   FillPlotTab();
 }
 
@@ -33,7 +34,7 @@ MainWindow::~MainWindow() {
   }
 
   if (xlsx_sql_ != nullptr) {
-    xlsx_sql_->DropPlotTable();
+    //    xlsx_sql_->DropPlotTable();
     delete xlsx_sql_;
   }
 }
@@ -89,7 +90,20 @@ void MainWindow::FillPlotTab() {
   ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
-void MainWindow::FillNpcTab() {}
+void MainWindow::FillMissionTab() {
+  mission_model_ = new QSqlTableModel();
+  mission_model_->setTable("Mission");
+  mission_model_->setEditStrategy(QSqlTableModel::OnFieldChange);
+  mission_model_->setSort(5, Qt::AscendingOrder);
+
+  mission_model_->select();
+
+  ui->missionView->setModel(mission_model_);
+  ui->missionView->resizeRowsToContents();
+  //  ui->missionView->setColumnWidth(3, 500);
+  ui->missionView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  ui->missionView->setSelectionBehavior(QAbstractItemView::SelectRows);
+}
 
 void MainWindow::ShowSettingWidget() {
   auto settings_ = new Settings(this);

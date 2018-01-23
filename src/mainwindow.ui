@@ -90,9 +90,6 @@ border-left-color: rgba(255, 255, 255, 0);</string>
         <string>任务对话列表</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="1" column="0">
-         <widget class="QTreeView" name="treeView"/>
-        </item>
         <item row="0" column="0">
          <widget class="QFrame" name="frameMission">
           <property name="frameShape">
@@ -150,6 +147,9 @@ border-left-color: rgba(255, 255, 255, 0);</string>
            </item>
           </layout>
          </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QTableView" name="missionView"/>
         </item>
        </layout>
       </widget>

@@ -2,13 +2,16 @@
 
 XlsxSQL *XlsxSQL::instance_ = nullptr;
 
-XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QString &scene_path) {
+XlsxSQL::XlsxSQL(const QString &plot_path,
+                 const QString &npc_path,
+                 const QString &scene_path,
+                 const QString &mission_path) {
   instance_ = this;
 
   npc_doc_ = new QXlsx::Document(npc_path);
   scene_doc_ = new QXlsx::Document(scene_path);
   plot_doc_ = new QXlsx::Document(plot_path);
-  //  mission_doc_ = new QXlsx::Document()
+  mission_doc_ = new QXlsx::Document(mission_path);
 
   if (!ConnectDB()) {
     PrintMsg("ERROR: CREATE SQLITE DB FAILED.");
@@ -17,6 +20,7 @@ XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QStrin
   CreatePlotTable();
   CreateNpcTable();
   CreateSceneTable();
+  CreateMissionTable();
 }
 
 XlsxSQL::~XlsxSQL() {
@@ -125,25 +129,21 @@ bool XlsxSQL::CreateSubPlotTable(const QString &current_sheet_name, const QStrin
     query.prepare(sql);
     query.bindValue(":sn", sn);
     if (query.exec()) {
-      if (!query.first()) {
-        hasChanged = true;
-      } else {
-        if (query.next()) {
-          if (sn != query.value(0).toString() || order != query.value(1).toString() ||
-              npcsn != query.value(2).toString() || content != query.value(3).toString() ||
-              voice != query.value(4).toString()) {
-            hasChanged = true;
-          }
-        } else {
+      if (query.next()) {
+        if (sn != query.value(0).toString() || order != query.value(1).toString() ||
+            npcsn != query.value(2).toString() || content != query.value(3).toString() ||
+            voice != query.value(4).toString()) {
           hasChanged = true;
         }
+      } else {
+        hasChanged = true;
       }
     }
 
     query.finish();
 
     if (hasChanged) {
-      QString sql_statement = "INSERT INTO " + table_name + " VALUES (?, ?, ?, ?, ?, ?)";
+      QString sql_statement = "INSERT OR REPLACE INTO " + table_name + " VALUES (?, ?, ?, ?, ?, ?)";
       query.prepare(sql_statement);
       query.addBindValue(sn);       // sn
       query.addBindValue(order);    // order(next)
@@ -188,6 +188,7 @@ bool XlsxSQL::CreateNpcTable() {
 
     if (!query.exec(sql_statement)) {
       PrintMsg("Create table " + GlobalStrs::NpcTableName + " failed");
+      query.finish();
       return false;
     }
 
@@ -348,7 +349,137 @@ bool XlsxSQL::CreateSceneNpcTable() {
 }
 
 bool XlsxSQL::CreateMissionTable() {
-  return false;
+  mission_doc_->selectSheet(GlobalStrs::MissionSheetName);
+  if (!db_.tables().contains(GlobalStrs::MissionTableName)) {
+    QSqlQuery query;
+    QString sql = "CREATE TABLE IF NOT EXISTS " + GlobalStrs::MissionTableName +
+                  "(sn INTEGER PRIMARY KEY,"
+                  "name TEXT,"
+                  "desc TEXT,"
+                  "task TEXT,"
+                  "beforeAccept TEXT,"
+                  "afterAccept TEXT,"
+                  "beforeSubmit TEXT,"
+                  "afterSubmit TEXT,"
+                  "beforeExec TEXT,"
+                  "selectSkip TEXT)";
+
+    if (!query.exec(sql)) {
+      PrintMsg("Create table " + GlobalStrs::MissionTableName + " failed");
+      query.finish();
+      return false;
+    }
+
+    query.finish();
+  }
+
+  QXlsx::Worksheet *sheet = mission_doc_->currentWorksheet();
+  QXlsx::CellRange cell_range = mission_doc_->currentWorksheet()->dimension();
+
+  QSqlQuery query;
+
+  int row = cell_range.lastRow();
+
+  // init ui progressbar
+  QString title = GlobalStrs::CheckProgressHead + GlobalStrs::MissionSheetName;
+  QString progname = GlobalStrs::MissionTableName;
+  ProgressBar *pb = CreateNewProgressBar(title, progname, 0, row, 5);
+  pb->show();
+
+  for (int i = 5; i <= row; i++) {
+    QString sn = GetCell(sheet, i, 1);
+    QString name = GetCell(sheet, i, 3);
+    QString desc = GetCell(sheet, i, 4);
+    QString taskType = GetCell(sheet, i, 14);
+    QString task(""), beforeAccept(""), afterAccept(""), beforeSubmit(""), afterSubmit(""),
+        beforeExec(""), selectSkip("");
+    if (taskType == QString("1")) {
+      QString taskContent = GetCell(sheet, i, 15);
+      task = taskContent.split(",")[1];
+    }
+
+    QString plotData = GetCell(sheet, i, 31);
+    QStringList datas = plotData.split(",");
+    for (int j = 0; j < datas.size(); j++) {
+      QStringList plotSeg = datas[j].split("|");
+
+      if (plotSeg.size() != 2)
+        continue;
+
+      QString plotSn = plotSeg[0];
+      QString playType = plotSeg[1];
+      if (playType == GlobalStrs::BeforeAccept) {
+        beforeAccept = plotSn;
+      } else if (playType == GlobalStrs::AfterAccept) {
+        afterAccept = plotSn;
+      } else if (playType == GlobalStrs::BeforeSubmit) {
+        beforeSubmit = plotSn;
+      } else if (playType == GlobalStrs::AfterSubmit) {
+        afterSubmit = plotSn;
+      } else if (playType == GlobalStrs::BeforeExec) {
+        beforeExec = plotSn;
+      } else if (playType == GlobalStrs::SelectSkip) {
+        selectSkip = plotSn;
+      }
+    }
+
+    bool hasChanged = false;
+
+    // check is data changed.
+    QString sql = QString("SELECT * FROM %1 WHERE sn = :sn").arg(GlobalStrs::MissionTableName);
+    query.prepare(sql);
+    query.bindValue(":sn", sn);
+    if (query.exec()) {
+      if (query.next()) {
+        if (sn != query.value(0).toString() || name != query.value(1).toString() ||
+            desc != query.value(2).toString() || task != query.value(3).toString() ||
+            beforeAccept != query.value(4).toString() || afterAccept != query.value(5).toString() ||
+            beforeSubmit != query.value(6).toString() || afterSubmit != query.value(7).toString() ||
+            beforeExec != query.value(8).toString() || selectSkip != query.value(9).toString()) {
+          hasChanged = true;
+        }
+      } else {
+        hasChanged = true;
+      }
+    }
+
+    query.finish();
+
+    if (hasChanged) {
+      QString sql = "INSERT OR REPLACE INTO " + GlobalStrs::MissionTableName +
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      query.prepare(sql);
+      query.addBindValue(sn);
+      query.addBindValue(name);
+      query.addBindValue(desc);
+      query.addBindValue(task);
+      query.addBindValue(beforeAccept);
+      query.addBindValue(afterAccept);
+      query.addBindValue(beforeSubmit);
+      query.addBindValue(afterSubmit);
+      query.addBindValue(beforeExec);
+      query.addBindValue(selectSkip);
+
+      if (!query.exec()) {
+        QString errorTips = GlobalStrs::InsertFailed + sql;
+        PrintMsg(errorTips);
+
+        pb->close();
+        delete pb;
+
+        return false;
+      }
+
+      query.finish();
+    }
+
+    pb->SetValue(i);
+  }
+
+  pb->close();
+  delete pb;
+
+  return true;
 }
 
 void XlsxSQL::DropPlotTable() {

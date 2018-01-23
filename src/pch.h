@@ -81,10 +81,19 @@ static const QString WARNING_NO_MISSION_FILE = QString("没有选定Mission配�
 
 static const QString NpcSheetName = QString("Npc|Npc");
 static const QString NpcTableName = QString("Npc");
+
 static const QString SceneSheetName = QString("场景副本|Scene");
 static const QString SceneTableName = QString("Scene");
+
 static const QString MissionSheetName = QString("任务配置|Quest");
 static const QString MissionTableName = QString("Mission");
+
+static const QString BeforeAccept = QString("1");
+static const QString AfterAccept = QString("2");
+static const QString BeforeSubmit = QString("3");
+static const QString AfterSubmit = QString("4");
+static const QString BeforeExec = QString("5");
+static const QString SelectSkip = QString("11");
 
 static const QString InsertFailed = QString("Insert failed: ");
 static const QString CheckProgressHead = QString("Check Execel: ");

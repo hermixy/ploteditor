@@ -10,7 +10,7 @@
 
 class XlsxSQL {
  public:
-  explicit XlsxSQL(const QString &, const QString &, const QString &);
+  explicit XlsxSQL(const QString &, const QString &, const QString &, const QString &);
   ~XlsxSQL();
 
  public:

@@ -25,7 +25,7 @@ class MainWindow : public QMainWindow {
   void ReloadSettings();
 
   void FillPlotTab();
-  void FillNpcTab();
+  void FillMissionTab();
 
   void CreateActions();
   void BindMenuActions();
@@ -36,6 +36,7 @@ class MainWindow : public QMainWindow {
   SettingsData *settings_data_;
 
   QSqlTableModel *plot_model_;
+  QSqlTableModel *mission_model_;
 
  private:
   Ui::MainWindow *ui;
