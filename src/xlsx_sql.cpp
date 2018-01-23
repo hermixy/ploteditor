@@ -8,6 +8,7 @@ XlsxSQL::XlsxSQL(const QString &plot_path, const QString &npc_path, const QStrin
   npc_doc_ = new QXlsx::Document(npc_path);
   scene_doc_ = new QXlsx::Document(scene_path);
   plot_doc_ = new QXlsx::Document(plot_path);
+  //  mission_doc_ = new QXlsx::Document()
 
   if (!ConnectDB()) {
     PrintMsg("ERROR: CREATE SQLITE DB FAILED.");

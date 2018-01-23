@@ -16,26 +16,13 @@ class SettingsData {
   void SetSceneXlsxPath(const QString &);
   void SetMissionXlsxPath(const QString &);
 
-  void SetColor1(const QString &);
-  void SetColor2(const QString &);
-  void SetColor3(const QString &);
-  void SetColor4(const QString &);
-  void SetColor5(const QString &);
-
   QString GetNpcXlsxPath();
   QString GetPlotXlsxPath();
-  QString GetScenePlotXlsxPath();
+  QString GetSceneXlsxPath();
   QString GetMissionXlsxPath();
-
-  QString GetColor1();
-  QString GetColor2();
-  QString GetColor3();
-  QString GetColor4();
-  QString GetColor5();
 
  private:
   QSettings *qsettings_;
-  QRegularExpression *color_hex_checker_;
 };
 
 #endif  // SETTINGS_DATA_H

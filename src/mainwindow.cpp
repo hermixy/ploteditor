@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   if (CheckAllConfigFiles()) {
     xlsx_sql_ = new XlsxSQL(settings_data_->GetPlotXlsxPath(),
                             settings_data_->GetNpcXlsxPath(),
-                            settings_data_->GetScenePlotXlsxPath());
+                            settings_data_->GetSceneXlsxPath());
   } else {
     xlsx_sql_ = nullptr;
   }
@@ -46,7 +46,7 @@ bool MainWindow::CheckAllConfigFiles() {
     warning += GlobalStrs::WARNING_NO_NPC_FILE;
   }
 
-  QString scene_path = settings_data_->GetScenePlotXlsxPath();
+  QString scene_path = settings_data_->GetSceneXlsxPath();
   if (0 == scene_path.length()) {
     warning += GlobalStrs::WARNING_NO_SCENE_FILE;
   }

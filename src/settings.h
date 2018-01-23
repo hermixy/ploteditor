@@ -25,11 +25,7 @@ class Settings : public QWidget {
   // bind the buttons' actions
   void BindActions();
 
-  void SetQLineTextPalette(QLineEdit *, const QString &);
-
   void LoadSettings();
-
-  void IsHexColroStr(const QString &);
 
  private slots:
   // ui panel browser the npc file path.
@@ -49,29 +45,16 @@ class Settings : public QWidget {
   void OnSceneFilePathChanged(const QString &);
   void OnMissionFilePathChanged(const QString &);
 
-  void OnColor1Changed(const QString &);
-  void OnColor2Changed(const QString &);
-  void OnColor3Changed(const QString &);
-  void OnColor4Changed(const QString &);
-  void OnColor5Changed(const QString &);
-
  private:
   QString npc_file_path_;
   QString plot_file_path_;
   QString scene_file_path_;
   QString mission_file_path_;
 
-  QString color1_name_;
-  QString color2_name_;
-  QString color3_name_;
-  QString color4_name_;
-  QString color5_name_;
-
  private:
   Ui::Settings *ui;
 
   SettingsData *settings_data_;
-  QRegularExpression *color_hex_checker_;
 };
 
 #endif  // SETTINGS_H

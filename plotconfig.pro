@@ -34,7 +34,8 @@ SOURCES += \
     src/plotviewer/plotviewer.cpp \
     src/plotviewer/plot_viewer_item.cpp \
     src/plotviewer/plot_viewer_model.cpp \
-    src/plot_row_data.cpp
+    src/plot_row_data.cpp \
+    src/json_config.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -49,7 +50,8 @@ HEADERS += \
     src/plotviewer/plotviewer.h \
     src/plotviewer/plot_viewer_item.h \
     src/plotviewer/plot_viewer_model.h \
-    src/plot_row_data.h
+    src/plot_row_data.h \
+    src/json_config.h
 
 FORMS += \
     src/mainwindow.ui \

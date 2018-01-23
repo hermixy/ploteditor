@@ -75,6 +75,7 @@ class XlsxSQL {
   QXlsx::Document *plot_doc_;
   QXlsx::Document *npc_doc_;
   QXlsx::Document *scene_doc_;
+  QXlsx::Document *mission_doc_;
 
   QSqlDatabase db_;
 
