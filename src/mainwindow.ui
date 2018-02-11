@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1093</width>
+    <width>1100</width>
     <height>777</height>
    </rect>
   </property>
@@ -149,7 +149,13 @@ border-left-color: rgba(255, 255, 255, 0);</string>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QTableView" name="missionView"/>
+         <widget class="QTableView" name="missionView">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+           </font>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -214,7 +220,7 @@ border-left-color: rgba(255, 255, 255, 0);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1093</width>
+     <width>1100</width>
      <height>20</height>
     </rect>
    </property>

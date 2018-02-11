@@ -8,7 +8,7 @@ namespace Ui {
 class Settings;
 }  // namespace Ui
 
-class Settings : public QWidget {
+class Settings : public QDialog {
   Q_OBJECT
 
  public:

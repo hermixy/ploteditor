@@ -19,8 +19,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
   BindMenuActions();
 
-  //  ui->tabWidget->hide();
-
   FillMissionTab();
   FillPlotTab();
 }
@@ -103,6 +101,7 @@ void MainWindow::FillMissionTab() {
   //  ui->missionView->setColumnWidth(3, 500);
   ui->missionView->setEditTriggers(QAbstractItemView::NoEditTriggers);
   ui->missionView->setSelectionBehavior(QAbstractItemView::SelectRows);
+  ui->missionView->horizontalHeader()->setStretchLastSection(true);
 }
 
 void MainWindow::ShowSettingWidget() {

@@ -1,11 +1,9 @@
 {
-    
-    
     "SQL_PlotTableName" : "Plot",
     "SQL_NpcTableName": "Npc",
     "SQL_SceneTableName": "Scene",
     "SQL_MissionTableName": "Mission",
-    
+
     "SQL_CreatePlotTable" : "CREATE TABLE IF NOT EXISTS Plot (sn TEXT PRIMARY KEY NOT NULL, next TEXT, npcId INTEGER, content BLOB, voiceChat TEXT, row INTEGER)",
     "SQL_InsertIntoPlot" : "INSERT INTO Plot VALUES (?, ?, ?, ?, ?, ?)",
     "SQL_InsertOrReplaceIntoPlot" : "INSERT OR REPLACE INTO Plot VALUES (?, ?, ?, ?, ?, ?)",
@@ -28,10 +26,3 @@
 
     "SQL_SelectConfSn" : "SELECT * FROM %1 WHERE sn = :sn"
 }
-
-
-
-
-
-
-
