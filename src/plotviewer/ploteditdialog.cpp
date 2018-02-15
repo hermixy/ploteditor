@@ -9,7 +9,7 @@ PlotEditDialog::PlotEditDialog(const QString &sn, QWidget *parent)
 
   plot_sn_ = sn;
 
-  setWindowTitle(tr("Plot Edit"));
+  setWindowTitle(tr("Plot Editor"));
 
   connect(ui->buttonBox->button(QDialogButtonBox::Cancel), SIGNAL(released()), this, SLOT(Close()));
   connect(ui->buttonBox->button(QDialogButtonBox::Ok), SIGNAL(released()), this, SLOT(Save()));

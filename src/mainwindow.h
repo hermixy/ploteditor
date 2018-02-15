@@ -20,16 +20,24 @@ class MainWindow : public QMainWindow {
   void ShowSettingWidget();
   void OnPlotRowDoubleClicked(const QModelIndex &);
 
+  void OnBtnSearchPlotClicked();
+  void OnBtnSearchMissionClicked();
+
  private:
   bool CheckAllConfigFiles();
   void ReloadSettings();
 
-  void FillPlotTab();
-  void FillMissionTab();
+  void SetPlotTab();
+  void SetMissionTab();
 
   void CreateActions();
   void BindMenuActions();
 
+ private:
+  void SetSearchPlotTab(const QString &);
+  void SetSearchMissionTab(const QString &);
+
+ private:
   QString settings_filename_;
 
   XlsxSQL *xlsx_sql_;

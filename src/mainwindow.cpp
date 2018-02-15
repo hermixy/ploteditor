@@ -17,10 +17,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     xlsx_sql_ = nullptr;
   }
 
+  mission_model_ = new QSqlTableModel();
+  plot_model_ = new QSqlTableModel();
+
   BindMenuActions();
 
-  FillMissionTab();
-  FillPlotTab();
+  SetMissionTab();
+  SetPlotTab();
 }
 
 MainWindow::~MainWindow() {
@@ -35,6 +38,14 @@ MainWindow::~MainWindow() {
     //    xlsx_sql_->DropPlotTable();
     delete xlsx_sql_;
   }
+}
+
+void MainWindow::OnBtnSearchMissionClicked() {
+  this->SetSearchMissionTab(ui->missionSearchbox->text());
+}
+
+void MainWindow::OnBtnSearchPlotClicked() {
+  this->SetSearchPlotTab(ui->plotSearchbox->text());
 }
 
 bool MainWindow::CheckAllConfigFiles() {
@@ -73,32 +84,57 @@ bool MainWindow::CheckAllConfigFiles() {
 
 void MainWindow::ReloadSettings() {}
 
-void MainWindow::FillPlotTab() {
-  plot_model_ = new QSqlTableModel();
+void MainWindow::SetPlotTab() {
+  this->SetSearchPlotTab(QString());
+}
+
+void MainWindow::SetMissionTab() {
+  // set combo box and search box
+  QStringList search_conditions;
+  search_conditions.push_back(tr("任务Sn"));
+  search_conditions.push_back(tr("任务链"));
+
+  ui->searchCond->addItems(search_conditions);
+
+  this->SetSearchMissionTab(QString());
+}
+
+void MainWindow::SetSearchPlotTab(const QString &cond) {
   plot_model_->setTable("Plot");
   plot_model_->setEditStrategy(QSqlTableModel::OnFieldChange);
   plot_model_->setSort(5, Qt::AscendingOrder);
 
+  if (!(cond.isNull() || cond.isEmpty())) {
+    plot_model_->setFilter(QString("sn LIKE '%%1%'").arg(cond));
+  }
+
   plot_model_->select();
 
-  ui->tableView->setModel(plot_model_);
-  ui->tableView->resizeRowsToContents();
-  ui->tableView->setColumnWidth(3, 500);
-  ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-  ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+  ui->plotView->setModel(plot_model_);
+  ui->plotView->resizeRowsToContents();
+  ui->plotView->setColumnWidth(3, 500);
+  ui->plotView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  ui->plotView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
-void MainWindow::FillMissionTab() {
-  mission_model_ = new QSqlTableModel();
+void MainWindow::SetSearchMissionTab(const QString &cond) {
+  // set table
   mission_model_->setTable("Mission");
   mission_model_->setEditStrategy(QSqlTableModel::OnFieldChange);
   mission_model_->setSort(5, Qt::AscendingOrder);
 
+  if (!(cond.isNull() || cond.isEmpty())) {
+    if (ui->searchCond->currentIndex() == 0) {
+      mission_model_->setFilter(QString("sn LIKE '%%1%'").arg(cond));
+    } else if (ui->searchCond->currentIndex() == 1) {
+      mission_model_->setFilter(QString("line = '%1'").arg(cond));
+    }
+  }
+
   mission_model_->select();
 
   ui->missionView->setModel(mission_model_);
-//  ui->missionView->resizeRowsToContents();
-  //  ui->missionView->setColumnWidth(3, 500);
+  ui->missionView->hideColumn(10);
   ui->missionView->setEditTriggers(QAbstractItemView::NoEditTriggers);
   ui->missionView->setSelectionBehavior(QAbstractItemView::SelectRows);
   ui->missionView->horizontalHeader()->setStretchLastSection(true);
@@ -113,10 +149,13 @@ void MainWindow::ShowSettingWidget() {
 
 void MainWindow::BindMenuActions() {
   connect(ui->actionShowSettings, &QAction::triggered, this, &MainWindow::ShowSettingWidget);
-  connect(ui->tableView,
+  connect(ui->plotView,
           SIGNAL(doubleClicked(const QModelIndex &)),
           this,
           SLOT(OnPlotRowDoubleClicked(const QModelIndex &)));
+
+  connect(ui->btnSearchMission, SIGNAL(released()), this, SLOT(OnBtnSearchMissionClicked()));
+  connect(ui->btnSearchPlot, SIGNAL(released()), this, SLOT(OnBtnSearchPlotClicked()));
 }
 
 void MainWindow::OnPlotRowDoubleClicked(const QModelIndex &idx) {
