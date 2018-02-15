@@ -362,7 +362,8 @@ bool XlsxSQL::CreateMissionTable() {
                   "beforeSubmit TEXT,"
                   "afterSubmit TEXT,"
                   "beforeExec TEXT,"
-                  "selectSkip TEXT)";
+                  "selectSkip TEXT,"
+                  "line TEXT)";
 
     if (!query.exec(sql)) {
       PrintMsg("Create table " + GlobalStrs::MissionTableName + " failed");
@@ -390,6 +391,7 @@ bool XlsxSQL::CreateMissionTable() {
     QString sn = GetCell(sheet, i, 1);
     QString name = GetCell(sheet, i, 3);
     QString desc = GetCell(sheet, i, 4);
+    QString line = GetCell(sheet, i, 13);
     QString taskType = GetCell(sheet, i, 14);
     QString task(""), beforeAccept(""), afterAccept(""), beforeSubmit(""), afterSubmit(""),
         beforeExec(""), selectSkip("");
@@ -435,7 +437,8 @@ bool XlsxSQL::CreateMissionTable() {
             desc != query.value(2).toString() || task != query.value(3).toString() ||
             beforeAccept != query.value(4).toString() || afterAccept != query.value(5).toString() ||
             beforeSubmit != query.value(6).toString() || afterSubmit != query.value(7).toString() ||
-            beforeExec != query.value(8).toString() || selectSkip != query.value(9).toString()) {
+            beforeExec != query.value(8).toString() || selectSkip != query.value(9).toString() ||
+            line != query.value(10).toString()) {
           hasChanged = true;
         }
       } else {
@@ -447,8 +450,9 @@ bool XlsxSQL::CreateMissionTable() {
 
     if (hasChanged) {
       QString sql = "INSERT OR REPLACE INTO " + GlobalStrs::MissionTableName +
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       query.prepare(sql);
+
       query.addBindValue(sn);
       query.addBindValue(name);
       query.addBindValue(desc);
@@ -459,6 +463,7 @@ bool XlsxSQL::CreateMissionTable() {
       query.addBindValue(afterSubmit);
       query.addBindValue(beforeExec);
       query.addBindValue(selectSkip);
+      query.addBindValue(line);
 
       if (!query.exec()) {
         QString errorTips = GlobalStrs::InsertFailed + sql;

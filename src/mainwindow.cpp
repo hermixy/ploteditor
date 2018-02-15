@@ -97,7 +97,7 @@ void MainWindow::FillMissionTab() {
   mission_model_->select();
 
   ui->missionView->setModel(mission_model_);
-  ui->missionView->resizeRowsToContents();
+//  ui->missionView->resizeRowsToContents();
   //  ui->missionView->setColumnWidth(3, 500);
   ui->missionView->setEditTriggers(QAbstractItemView::NoEditTriggers);
   ui->missionView->setSelectionBehavior(QAbstractItemView::SelectRows);

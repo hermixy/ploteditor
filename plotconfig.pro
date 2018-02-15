@@ -35,7 +35,8 @@ SOURCES += \
     src/plotviewer/plot_viewer_item.cpp \
     src/plotviewer/plot_viewer_model.cpp \
     src/plot_row_data.cpp \
-    src/json_config.cpp
+    src/json_config.cpp \
+    src/plotabout.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -51,14 +52,16 @@ HEADERS += \
     src/plotviewer/plot_viewer_item.h \
     src/plotviewer/plot_viewer_model.h \
     src/plot_row_data.h \
-    src/json_config.h
+    src/json_config.h \
+    src/plotabout.h
 
 FORMS += \
     src/mainwindow.ui \
     src/settings.ui \
     src/progressbar.ui \
     src/plotviewer/ploteditdialog.ui \
-    src/plotviewer/plotviewer.ui
+    src/plotviewer/plotviewer.ui \
+    src/plotabout.ui
 
 DISTFILES += \
     notes.md

@@ -221,7 +221,7 @@ border-left-color: rgba(255, 255, 255, 0);</string>
      <x>0</x>
      <y>0</y>
      <width>1100</width>
-     <height>20</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Settings">
@@ -234,7 +234,14 @@ border-left-color: rgba(255, 255, 255, 0);</string>
     <addaction name="separator"/>
     <addaction name="actionShowSettings"/>
    </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>对话编辑</string>
+    </property>
+    <addaction name="actionInsertPlot"/>
+   </widget>
    <addaction name="menu_Settings"/>
+   <addaction name="menu"/>
   </widget>
   <action name="actionShowSettings">
    <property name="text">
@@ -289,6 +296,19 @@ border-left-color: rgba(255, 255, 255, 0);</string>
    </property>
    <property name="shortcut">
     <string>Alt+4</string>
+   </property>
+  </action>
+  <action name="actionInsertPlot">
+   <property name="text">
+    <string>新对话</string>
+   </property>
+   <property name="toolTip">
+    <string>插入新的对话</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
    </property>
   </action>
  </widget>
